@@ -71,7 +71,7 @@ namespace OpenGoldenSunWindows
         {
             Reference<int> cursorPosition = new Reference<int> (0);
             Reference<Character> selectedCharacter = new Reference<Character> (null);
-            StatusScreenController controller = new StatusScreenController (cursorPosition, selectedCharacter, party);
+            StatusScreenController controller = new StatusScreenController (windowManager, cursorPosition, selectedCharacter, party);
             statusScreen = new StatusScreen (controller, windowManager, cursorPosition, selectedCharacter, party);
         }
 
