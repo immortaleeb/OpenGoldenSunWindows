@@ -6,6 +6,14 @@ using OpenGoldenSunWindows.Characters;
 
 namespace OpenGoldenSunWindows.Utils
 {
+    public enum Icons
+    {
+        Psynergy = 0,
+        Djinn,
+        Item,
+        Status
+    }
+
     public class IconRenderer
     {
         static Texture2D cursorTexture;
@@ -13,6 +21,7 @@ namespace OpenGoldenSunWindows.Utils
         static Texture2D RButtonTexture;
         static Texture2D AButtonTexture;
         static Texture2D[] elementTextures = new Texture2D[Element.All.Length];
+        static Texture2D[] generalIconTextures = new Texture2D[Enum.GetValues (typeof(Icons)).Length];
 
         static IconRenderer()
         {
@@ -27,6 +36,11 @@ namespace OpenGoldenSunWindows.Utils
 
             foreach (Element element in Element.All) {
                 elementTextures [element.Index] = content.Load<Texture2D> ("Sprites/Icons/" + element.Name);
+            }
+
+            string[] icons = Enum.GetNames (typeof(Icons));
+            for (int i = 0; i < icons.Length; i++) {
+                generalIconTextures [i] = content.Load<Texture2D> ("Sprites/Icons/" + icons [i]);
             }
         }
 
@@ -53,6 +67,11 @@ namespace OpenGoldenSunWindows.Utils
         public static void DrawElementIcon(Element element, SpriteBatch spriteBatch, Vector2 position, Color color)
         {
             spriteBatch.Draw (elementTextures [element.Index], position, color);
+        }
+
+        public static Texture2D GetIconTexture(Icons icon)
+        {
+            return generalIconTextures[(int)icon];
         }
     }
 }

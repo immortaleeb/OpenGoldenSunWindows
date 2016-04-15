@@ -11,6 +11,7 @@ using OpenGoldenSunWindows.Characters;
 using OpenGoldenSunWindows.Gui;
 using OpenGoldenSunWindows.Gui.StatusScreen;
 using OpenGoldenSunWindows.Utils;
+using OpenGoldenSunWindows.Gui.MenuScreen;
 
 #endregion
 
@@ -31,6 +32,7 @@ namespace OpenGoldenSunWindows
 
         WindowManager windowManager;
         StatusScreen statusScreen;
+        MenuScreen menuScreen;
 
         Party party;
 
@@ -67,14 +69,6 @@ namespace OpenGoldenSunWindows
             party = new Party(characters);
         }
 
-        private void InitStatusScreen()
-        {
-            Reference<int> cursorPosition = new Reference<int> (0);
-            Reference<Character> selectedCharacter = new Reference<Character> (null);
-            StatusScreenController controller = new StatusScreenController (windowManager, cursorPosition, selectedCharacter, party);
-            statusScreen = new StatusScreen (controller, windowManager, cursorPosition, selectedCharacter, party);
-        }
-
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -89,13 +83,13 @@ namespace OpenGoldenSunWindows
             // Create a party
             InitParty();
 
-            // Create the windows
-            windowManager = new WindowManager ();
-            windowManager.Initialize (GraphicsDevice);
-            InitStatusScreen ();
 
             // Initialize helpers
             GraphicsHelper.Initialize(GraphicsDevice);
+
+            // Create the windows
+            WindowManager.Initialize(GraphicsDevice);
+            ScreenManager.Initialize (party);
 
             base.Initialize ();
 
@@ -110,10 +104,14 @@ namespace OpenGoldenSunWindows
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch (GraphicsDevice);
 
-            windowManager.Load (Content);
+            // Helpers
             FontRenderer.Load (Content);
             CharacterRenderer.Load (Content);
             IconRenderer.Load (Content);
+
+            // Window stuff
+            WindowManager.Load (Content);
+            ScreenManager.Load (Content);
         }
 
         /// <summary>
@@ -127,7 +125,7 @@ namespace OpenGoldenSunWindows
             CharacterRenderer.Update(gameTime);
 
             // Update screens
-            statusScreen.Update (gameTime);
+            ScreenManager.Update(gameTime);
 
             base.Update (gameTime);
         }
@@ -142,8 +140,8 @@ namespace OpenGoldenSunWindows
             GraphicsDevice.SetRenderTarget (target);
             spriteBatch.Begin (0, BlendState.AlphaBlend);
             {
-                graphics.GraphicsDevice.Clear (Color.Red);
-                statusScreen.Draw (spriteBatch, gameTime);
+                graphics.GraphicsDevice.Clear (Color.CornflowerBlue);
+                ScreenManager.Draw (spriteBatch, gameTime);
             }
             spriteBatch.End ();
             GraphicsDevice.SetRenderTarget (null);

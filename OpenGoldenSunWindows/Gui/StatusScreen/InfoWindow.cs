@@ -10,7 +10,7 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
 {
     public class InfoWindow : WindowBase
     {
-        public InfoWindow (WindowManager manager, int width, int height) : base(manager, width, height)
+        public InfoWindow (int width, int height) : base(width, height)
         {
         }
 

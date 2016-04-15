@@ -16,11 +16,11 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
         Window infoWindow;
         Window statusWindow;
 
-        public StatusScreen (StatusScreenController controller, WindowManager windowManager, Reference<int> cursorPosition, Reference<Character> selectedCharacter, Party party) : base(controller)
+        public StatusScreen (StatusScreenController controller, Reference<int> cursorPosition, Reference<Character> selectedCharacter, Party party) : base(controller)
         {
-            playerWindow = new PlayerWindow (windowManager, party, cursorPosition, 104, 40);
-            infoWindow = new InfoWindow (windowManager, 136, 40);
-            statusWindow = new StatusWindow (windowManager, selectedCharacter, 240, 120);
+            playerWindow = new PlayerWindow (party, cursorPosition, 104, 40);
+            infoWindow = new InfoWindow (136, 40);
+            statusWindow = new StatusWindow (selectedCharacter, 240, 120);
         }
 
         public override void Update(GameTime gameTime)

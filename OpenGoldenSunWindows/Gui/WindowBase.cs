@@ -12,18 +12,14 @@ namespace OpenGoldenSunWindows.Gui
         public int Width { get; }
         public int Height { get; }
 
-        WindowManager manager;
-
         Color shadeColor = Color.Black;
         Color variantDifference = new Color(0, 8, 16);
         Color darkBorderColor = new Color (80, 80, 80);
         Color lightBorderColor = new Color (248, 248, 248);
         Color grayBorderColor = new Color (160, 160, 160);
 
-        public WindowBase (WindowManager manager, int width, int height)
+        public WindowBase (int width, int height)
         {
-            this.manager = manager;
-
             Width = width;
             Height = height;
         }
@@ -86,11 +82,11 @@ namespace OpenGoldenSunWindows.Gui
         private void DrawInsideDetails(SpriteBatch spriteBatch, int x, int y)
         {
             // Color variants
-            Color lightVariant1 = addColors(manager.Color, variantDifference);
+            Color lightVariant1 = addColors(WindowManager.Color, variantDifference);
             Color lightVariant2 = addColors(lightVariant1, variantDifference);
             Color lightVariant3 = addColors(lightVariant2, variantDifference);
 
-            Color darkVariant1 = substrColors(manager.Color, variantDifference);
+            Color darkVariant1 = substrColors(WindowManager.Color, variantDifference);
             Color darkVariant2 = substrColors(darkVariant1, variantDifference);
             Color darkVariant3 = substrColors(darkVariant2, variantDifference);
 
@@ -135,7 +131,7 @@ namespace OpenGoldenSunWindows.Gui
         private void DrawFrame(SpriteBatch spriteBatch, GameTime gameTime, int x, int y)
         {
             // Fill the window content space with color
-            GraphicsHelper.Clear (spriteBatch, new Rectangle(x + 3, y + 3, Width - 7, Height - 7), manager.Color);
+            GraphicsHelper.Clear (spriteBatch, new Rectangle(x + 3, y + 3, Width - 7, Height - 7), WindowManager.Color);
 
             // Draw the inside border details
             DrawInsideDetails(spriteBatch, x, y);

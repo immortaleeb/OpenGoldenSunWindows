@@ -14,7 +14,7 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
     {
         Reference<Character> selectedCharacter;
 
-        public StatusWindow (WindowManager manager, Reference<Character> selectedCharacter, int width, int height) : base(manager, width, height)
+        public StatusWindow (Reference<Character> selectedCharacter, int width, int height) : base(width, height)
         {
             this.selectedCharacter = selectedCharacter;
         }

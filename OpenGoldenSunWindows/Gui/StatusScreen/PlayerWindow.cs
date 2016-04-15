@@ -15,7 +15,7 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
         Reference<int> selectedPlayer;
         const int spacing = 25;
 
-        public PlayerWindow (WindowManager manager, Party party, Reference<int> selectedPlayer, int width, int height) : base(manager, width, height)
+        public PlayerWindow (Party party, Reference<int> selectedPlayer, int width, int height) : base(width, height)
         {
             this.party = party;
             this.selectedPlayer = selectedPlayer;
