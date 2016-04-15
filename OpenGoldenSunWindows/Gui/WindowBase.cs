@@ -7,10 +7,6 @@ using OpenGoldenSunWindows.Utils;
 
 namespace OpenGoldenSunWindows.Gui
 {
-    /**
-     * A window with a given width and height that will be rendered
-     * using the settings specified by its WindowManager.
-     */
     public abstract class WindowBase : Window
     {
         public int Width { get; }

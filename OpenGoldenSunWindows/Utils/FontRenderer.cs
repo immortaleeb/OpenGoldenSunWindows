@@ -35,7 +35,7 @@ namespace OpenGoldenSunWindows.Utils
             0, 8, 0, 7
         };
 
-        public static void LoadContent(ContentManager content)
+        public static void Load(ContentManager content)
         {
             font = content.Load<Texture2D>("Sprites/font");
             lettersPerRow = font.Width / normalizedLetterWidth;

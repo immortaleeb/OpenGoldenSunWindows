@@ -5,10 +5,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OpenGoldenSunWindows.Gui
 {
-    /**
-     * A window manager is responsible for loading all window related textures
-     * and contains methods for creating new windows.
-     */
     public class WindowManager
     {
         public Color Color { get; set; }
@@ -25,7 +21,7 @@ namespace OpenGoldenSunWindows.Gui
             this.graphics = graphics;
         }
 
-        public void LoadContent(ContentManager content)
+        public void Load(ContentManager content)
         {
         }
     }

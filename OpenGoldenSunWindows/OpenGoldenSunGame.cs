@@ -21,12 +21,13 @@ namespace OpenGoldenSunWindows
     /// </summary>
     public class OpenGoldenSunGame : Game
     {
+        const int windowScale = 3;
+        Point gbaWindowSize = new Point(240, 160);
+        Point windowSize;
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         RenderTarget2D target;
-        int windowScale = 3;
-        Point gbaWindowSize = new Point(240, 160);
-        Point windowSize;
 
         WindowManager windowManager;
         StatusScreen statusScreen;
@@ -93,7 +94,6 @@ namespace OpenGoldenSunWindows
             windowManager.Initialize (GraphicsDevice);
             InitStatusScreen ();
 
-
             // Initialize helpers
             GraphicsHelper.Initialize(GraphicsDevice);
 
@@ -110,8 +110,8 @@ namespace OpenGoldenSunWindows
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch (GraphicsDevice);
 
-            windowManager.LoadContent (Content);
-            FontRenderer.LoadContent (Content);
+            windowManager.Load (Content);
+            FontRenderer.Load (Content);
             CharacterRenderer.Load (Content);
             IconRenderer.Load (Content);
         }
@@ -126,6 +126,7 @@ namespace OpenGoldenSunWindows
             // Update helpers
             CharacterRenderer.Update(gameTime);
 
+            // Update screens
             statusScreen.Update (gameTime);
 
             base.Update (gameTime);
