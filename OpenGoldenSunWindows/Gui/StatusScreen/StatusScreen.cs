@@ -18,9 +18,9 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
 
         public StatusScreen (StatusScreenController controller, Reference<int> cursorPosition, Reference<Character> selectedCharacter, Party party) : base(controller)
         {
-            playerWindow = new PlayerWindow (party, cursorPosition, 104, 40);
-            infoWindow = new InfoWindow (136, 40);
-            statusWindow = new StatusWindow (selectedCharacter, 240, 120);
+            playerWindow = new PlayerWindow (party, cursorPosition, 0, 0, 104, 40);
+            infoWindow = new InfoWindow (104, 0, 136, 40);
+            statusWindow = new StatusWindow (selectedCharacter, 0, 40, 240, 120);
         }
 
         public override void Update(GameTime gameTime)
@@ -33,9 +33,9 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            playerWindow.Draw (spriteBatch, gameTime, 0, 0);
-            infoWindow.Draw (spriteBatch, gameTime, 104, 0);
-            statusWindow.Draw (spriteBatch, gameTime, 0, 40);
+            playerWindow.Draw (spriteBatch, gameTime);
+            infoWindow.Draw (spriteBatch, gameTime);
+            statusWindow.Draw (spriteBatch, gameTime);
         }
     }
 }

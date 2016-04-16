@@ -8,7 +8,7 @@ namespace OpenGoldenSunWindows.Gui
     {
         void Update (GameTime gameTime);
 
-        void Draw (SpriteBatch spriteBatch, GameTime gameTime, int x, int y);
+        void Draw (SpriteBatch spriteBatch, GameTime gameTime);
     }
 }
 

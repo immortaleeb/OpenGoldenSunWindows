@@ -54,7 +54,7 @@ namespace OpenGoldenSunWindows.Gui.MenuScreen
             itemsMenuItem.Draw(spriteBatch, new Vector2(96, 136));
             statusMenuItem.Draw(spriteBatch, new Vector2(120, 136));
 
-            selectedMenuWindow.Draw (spriteBatch, gameTime, 144, 136);
+            selectedMenuWindow.Draw (spriteBatch, gameTime);
         }
     }
 }
