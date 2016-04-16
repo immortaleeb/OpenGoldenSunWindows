@@ -30,10 +30,6 @@ namespace OpenGoldenSunWindows
         SpriteBatch spriteBatch;
         RenderTarget2D target;
 
-        WindowManager windowManager;
-        StatusScreen statusScreen;
-        MenuScreen menuScreen;
-
         Party party;
 
         public OpenGoldenSunGame ()

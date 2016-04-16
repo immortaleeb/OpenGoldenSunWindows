@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace OpenGoldenSunWindows
+namespace OpenGoldenSunWindows.Gui
 {
     public class IntegerLabel : TextLabel
     {

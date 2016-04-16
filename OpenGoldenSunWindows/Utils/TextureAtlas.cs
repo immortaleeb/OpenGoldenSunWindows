@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
-namespace OpenGoldenSunWindows
+namespace OpenGoldenSunWindows.Utils
 {
     public class TextureAtlas
     {

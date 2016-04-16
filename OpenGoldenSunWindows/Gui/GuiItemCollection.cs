@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-namespace OpenGoldenSunWindows
+namespace OpenGoldenSunWindows.Gui
 {
     public class GuiItemCollection : GuiItem
     {
