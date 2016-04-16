@@ -15,38 +15,22 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
         Reference<Character> selectedCharacter;
 
         TextLabel characterName;
-        TextLabel lvText;
         IntegerLabel characterLevel;
-
-        TextLabel expText;
         IntegerLabel characterExp;
 
-        TextLabel hpText;
-        TextLabel hpSeparator;
         IntegerLabel characterHp;
         IntegerLabel characterMaxHp;
 
-        TextLabel ppText;
-        TextLabel ppSeparator;
         IntegerLabel characterPp;
         IntegerLabel characterMaxPp;
 
-        TextLabel attackText;
         IntegerLabel characterAttack;
-
-        TextLabel defenseText;
         IntegerLabel characterDefense;
-
-        TextLabel agilityText;
         IntegerLabel characterAgility;
-
-        TextLabel luckText;
         IntegerLabel characterLuck;
 
         TextLabel characterClass;
         TextLabel characterStatus;
-
-        TextLabel djinnText;
 
         IntegerLabel earthDjinn;
         IntegerLabel waterDjinn;
@@ -57,57 +41,47 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
         {
             this.selectedCharacter = selectedCharacter;
 
-            characterName = new TextLabel (new Vector2 (X + 48, Y + 8));
-            lvText = new TextLabel ("Lv", new Vector2 (X + 112, Y + 8));
-            characterLevel = new IntegerLabel (new Vector2 (X + 150, Y + 8));
+            Add (characterName = new TextLabel (new Vector2 (X + 48, Y + 8)));
+            Add (new TextLabel ("Lv", new Vector2 (X + 112, Y + 8)));
+            Add (characterLevel = new IntegerLabel (new Vector2 (X + 150, Y + 8)));
 
-            expText = new TextLabel ("Exp", new Vector2 (X + 48, Y + 16));
-            characterExp = new IntegerLabel (new Vector2 (X + 150, Y + 16));
+            Add (new TextLabel ("Exp", new Vector2 (X + 48, Y + 16)));
+            Add (characterExp = new IntegerLabel (new Vector2 (X + 150, Y + 16)));
 
-            hpText = new TextLabel ("HP", new Vector2 (X + 48, Y + 24));
-            hpSeparator = new TextLabel ("/", new Vector2 (X + 111, Y + 24));
-            characterHp = new IntegerLabel (new Vector2 (X + 111, Y + 24));
-            characterMaxHp = new IntegerLabel (new Vector2 (X + 150, Y + 24));
+            Add (new TextLabel ("HP", new Vector2 (X + 48, Y + 24)));
+            Add (new TextLabel ("/", new Vector2 (X + 111, Y + 24)));
+            Add (characterHp = new IntegerLabel (new Vector2 (X + 111, Y + 24)));
+            Add (characterMaxHp = new IntegerLabel (new Vector2 (X + 150, Y + 24)));
 
-            ppText = new TextLabel ("PP", new Vector2 (X + 48, Y + 32));
-            ppSeparator = new TextLabel ("/", new Vector2 (X + 111, Y + 32));
-            characterPp = new IntegerLabel (new Vector2 (X + 111, Y + 32));
-            characterMaxPp = new IntegerLabel (new Vector2 (X + 150, Y + 32));
+            Add (new TextLabel ("PP", new Vector2 (X + 48, Y + 32)));
+            Add (new TextLabel ("/", new Vector2 (X + 111, Y + 32)));
+            Add (characterPp = new IntegerLabel (new Vector2 (X + 111, Y + 32)));
+            Add (characterMaxPp = new IntegerLabel (new Vector2 (X + 150, Y + 32)));
 
-            attackText = new TextLabel ("Attack", new Vector2 (X + 160, Y + 8));
-            characterAttack = new IntegerLabel (new Vector2 (X + 230, Y + 8));
+            Add (new TextLabel ("Attack", new Vector2 (X + 160, Y + 8)));
+            Add (characterAttack = new IntegerLabel (new Vector2 (X + 230, Y + 8)));
 
-            defenseText = new TextLabel ("Defense", new Vector2 (X + 160, Y + 16));
-            characterDefense = new IntegerLabel (new Vector2 (X + 230, Y + 16));
+            Add (new TextLabel ("Defense", new Vector2 (X + 160, Y + 16)));
+            Add (characterDefense = new IntegerLabel (new Vector2 (X + 230, Y + 16)));
 
-            agilityText = new TextLabel ("Agility", new Vector2 (X + 160, Y + 24));
-            characterAgility = new IntegerLabel (new Vector2 (X + 230, Y + 24));
+            Add (new TextLabel ("Agility", new Vector2 (X + 160, Y + 24)));
+            Add (characterAgility = new IntegerLabel (new Vector2 (X + 230, Y + 24)));
 
-            luckText = new TextLabel ("Luck", new Vector2 (X + 160, Y + 32));
-            characterLuck = new IntegerLabel (new Vector2 (X + 230, Y + 32));
+            Add (new TextLabel ("Luck", new Vector2 (X + 160, Y + 32)));
+            Add (characterLuck = new IntegerLabel (new Vector2 (X + 230, Y + 32)));
 
-            characterClass = new TextLabel (new Vector2 (X + 8, Y + 40));
-            characterStatus = new TextLabel (new Vector2 (X + 8, Y + 48));
+            Add (characterClass = new TextLabel (new Vector2 (X + 8, Y + 40)));
+            Add (characterStatus = new TextLabel (new Vector2 (X + 8, Y + 48)));
 
-            djinnText = new TextLabel("Djinn", new Vector2(X + 72, Y + 96));
-            earthDjinn = new IntegerLabel (new Vector2 (X + 136, Y + 96));
-            waterDjinn = new IntegerLabel (new Vector2 (X + 168, Y + 96));
-            fireDjinn = new IntegerLabel (new Vector2 (X + 200, Y + 96));
-            windDjinn = new IntegerLabel (new Vector2 (X + 232, Y + 96));
-        }
-         
-        public override void Load (Microsoft.Xna.Framework.Content.ContentManager content)
-        {
-            base.Load (content);
-
-            // TODO: load all textboxes
-            characterName.Load (content);
+            Add (new TextLabel ("Djinn", new Vector2 (X + 72, Y + 96)));
+            Add (earthDjinn = new IntegerLabel (new Vector2 (X + 136, Y + 96)));
+            Add (waterDjinn = new IntegerLabel (new Vector2 (X + 168, Y + 96)));
+            Add (fireDjinn = new IntegerLabel (new Vector2 (X + 200, Y + 96)));
+            Add (windDjinn = new IntegerLabel (new Vector2 (X + 232, Y + 96)));
         }
 
         public override void Update (GameTime gameTime)
         {
-            base.Update (gameTime);
-
             Character character = selectedCharacter.Value;
             characterName.Text = character.Name;
             characterLevel.Number = character.Level;
@@ -127,50 +101,16 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
             waterDjinn.Number = character.Djinn.Count (d => d.Element == Element.Water);
             fireDjinn.Number = character.Djinn.Count (d => d.Element == Element.Fire);
             windDjinn.Number = character.Djinn.Count (d => d.Element == Element.Wind);
+
+            base.Update (gameTime);
         }
 
         protected override void DrawContent (SpriteBatch spriteBatch, GameTime gameTime)
         {
-            
             Character character = selectedCharacter.Value;
             CharacterRenderer.DrawPortrait (character, spriteBatch, new Vector2 (X + 8, Y + 8), Color.White);
 
-            // Stats
-            characterName.Draw (spriteBatch);
-            lvText.Draw (spriteBatch);
-            characterLevel.Draw (spriteBatch);
-
-            expText.Draw (spriteBatch);
-            characterExp.Draw (spriteBatch);
-
-            hpText.Draw (spriteBatch);
-            characterHp.Draw (spriteBatch);
-            hpSeparator.Draw (spriteBatch);
-            characterMaxHp.Draw (spriteBatch);
-
-            ppText.Draw (spriteBatch);
-            characterPp.Draw (spriteBatch);
-            ppSeparator.Draw (spriteBatch);
-            characterMaxPp.Draw (spriteBatch);
-
-            attackText.Draw (spriteBatch);
-            characterAttack.Draw (spriteBatch);
-
-            defenseText.Draw (spriteBatch);
-            characterDefense.Draw (spriteBatch);
-
-            agilityText.Draw (spriteBatch);
-            characterAgility.Draw (spriteBatch);
-
-            luckText.Draw (spriteBatch);
-            characterLuck.Draw (spriteBatch);
-
-            characterClass.Draw (spriteBatch);
-            characterStatus.Draw (spriteBatch);
-
             // Djinni
-            djinnText.Draw (spriteBatch);
-
             CharacterRenderer.GetDjinniTexture (Element.Earth).Draw(spriteBatch, new Vector2 (X + 115, Y + 58), null, 0, null, SpriteEffects.FlipHorizontally);
             CharacterRenderer.GetDjinniTexture (Element.Water).Draw(spriteBatch, new Vector2 (X + 147, Y + 58), null, 0, null, SpriteEffects.FlipHorizontally);
             CharacterRenderer.GetDjinniTexture (Element.Fire).Draw(spriteBatch, new Vector2 (X + 180, Y + 58), null, 0, null, SpriteEffects.FlipHorizontally);
@@ -181,10 +121,7 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
             Utils.IconRenderer.DrawElementIcon (Element.Fire, spriteBatch, new Vector2 (X + 193, Y + 89), Color.White);
             Utils.IconRenderer.DrawElementIcon (Element.Wind, spriteBatch, new Vector2 (X + 225, Y + 89), Color.White);
 
-            earthDjinn.Draw (spriteBatch);
-            waterDjinn.Draw (spriteBatch);
-            fireDjinn.Draw (spriteBatch);
-            windDjinn.Draw (spriteBatch);
+            base.DrawContent (spriteBatch, gameTime);
         }
     }
 }

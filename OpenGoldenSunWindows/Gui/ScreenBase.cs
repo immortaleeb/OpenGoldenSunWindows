@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
 namespace OpenGoldenSunWindows.Gui
 {
-    public abstract class ScreenBase : Screen
+    public abstract class ScreenBase : GuiItemCollection, Screen
     {
         public Controller Controller { get; }
 
@@ -14,17 +15,12 @@ namespace OpenGoldenSunWindows.Gui
             Controller = controller;
         }
 
-        public virtual void Load(ContentManager content)
-        {
-            // Load nothing by default
-        }
-
         public virtual void Update (GameTime gameTime)
         {
             Controller.Update (gameTime);
-        }
 
-        public abstract void Draw (SpriteBatch spriteBatch, GameTime gameTime);
+            base.Update (gameTime);
+        }
     }
 }
 

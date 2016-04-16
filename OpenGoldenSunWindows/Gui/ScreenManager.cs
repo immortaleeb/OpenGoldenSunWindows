@@ -11,7 +11,8 @@ namespace OpenGoldenSunWindows.Gui
 {
     public class ScreenManager
     {
-        public static Screen SelectedScreen;
+        private static Screen selectedScreen;
+        public static Screen SelectedScreen { get { return selectedScreen; } }
 
         public static OpenGoldenSunWindows.Gui.MenuScreen.MenuScreen menuScreen;
         public static OpenGoldenSunWindows.Gui.StatusScreen.StatusScreen statusScreen;
@@ -40,8 +41,8 @@ namespace OpenGoldenSunWindows.Gui
         {
             InitMenuScreen ();
             InitStatusScreen (party);
-            
-            SelectedScreen = menuScreen;
+
+            ChangeScreen (menuScreen);
         }
 
         public static void Load(ContentManager content)
@@ -58,6 +59,13 @@ namespace OpenGoldenSunWindows.Gui
         public static void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             SelectedScreen.Draw(spriteBatch, gameTime);
+        }
+
+        public static void ChangeScreen(Screen newScreen)
+        {
+            selectedScreen?.Stop ();
+            newScreen?.Start ();
+            selectedScreen = newScreen;
         }
     }
 }

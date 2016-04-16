@@ -13,6 +13,8 @@ namespace OpenGoldenSunWindows.Animations
         float elapsedTime;
         int frame;
 
+        private bool isRunning;
+
         Icons icon;
         Texture2D texture;
         SelectedItem<Icons> selectedMenuItem;
@@ -23,6 +25,7 @@ namespace OpenGoldenSunWindows.Animations
             this.icon = icon;
             elapsedTime = 0;
             frame = 0;
+            isRunning = true;
         }
 
         public bool IsSelected()
@@ -37,6 +40,9 @@ namespace OpenGoldenSunWindows.Animations
 
         public void Update(GameTime gameTime)
         {
+            if (!isRunning)
+                return;
+            
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (elapsedTime >= FrameDuration) {
@@ -47,11 +53,24 @@ namespace OpenGoldenSunWindows.Animations
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
+            if (!isRunning)
+                return;
+            
             if (IsSelected ()) {
                 spriteBatch.Draw (texture, null, new Rectangle((int)position.X - 1 - frame, (int)position.Y - 4 - frame, 28 + frame, 28 + frame), null, null, 0);
             } else {
                 spriteBatch.Draw (texture, position);
             }
+        }
+
+        public void Start ()
+        {
+            isRunning = true;
+        }
+
+        public void Stop ()
+        {
+            isRunning = false;
         }
     }
 }

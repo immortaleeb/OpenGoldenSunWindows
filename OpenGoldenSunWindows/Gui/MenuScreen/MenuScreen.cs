@@ -23,30 +23,47 @@ namespace OpenGoldenSunWindows.Gui.MenuScreen
             statusMenuItem = new MenuItemAnimation (selectedMenuItem, OpenGoldenSunWindows.Utils.Icons.Status);
 
             selectedMenuWindow = new SelectedMenuWindow (selectedMenuItem);
+            Add (selectedMenuWindow);
         }
 
         public override void Load (Microsoft.Xna.Framework.Content.ContentManager content)
         {
-            base.Load (content);
-
             psynergyMenuItem.Load (content);
             djinnMenuItem.Load (content);
             itemsMenuItem.Load (content);
             statusMenuItem.Load (content);
 
-            selectedMenuWindow.Load (content);
+            base.Load (content);
+        }
+
+        public override void Start ()
+        {
+            psynergyMenuItem.Start ();
+            djinnMenuItem.Start ();
+            itemsMenuItem.Start ();
+            statusMenuItem.Start ();
+
+            base.Start ();
+        }
+
+        public override void Stop ()
+        {
+            psynergyMenuItem.Stop ();
+            djinnMenuItem.Stop ();
+            itemsMenuItem.Stop ();
+            statusMenuItem.Stop ();
+
+            base.Stop ();
         }
 
         public override void Update (GameTime gameTime)
         {
-            base.Update (gameTime);
-
             psynergyMenuItem.Update (gameTime);
             djinnMenuItem.Update (gameTime);
             itemsMenuItem.Update (gameTime);
             statusMenuItem.Update (gameTime);
 
-            selectedMenuWindow.Update (gameTime);
+            base.Update (gameTime);
         }
 
         public override void Draw (SpriteBatch spriteBatch, GameTime gameTime)
@@ -56,7 +73,7 @@ namespace OpenGoldenSunWindows.Gui.MenuScreen
             itemsMenuItem.Draw(spriteBatch, new Vector2(96, 136));
             statusMenuItem.Draw(spriteBatch, new Vector2(120, 136));
 
-            selectedMenuWindow.Draw (spriteBatch, gameTime);
+            base.Draw (spriteBatch, gameTime);
         }
     }
 }

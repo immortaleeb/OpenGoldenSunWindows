@@ -10,7 +10,7 @@ namespace OpenGoldenSunWindows
         Left, Right
     }
 
-    public class TextLabel
+    public class TextLabel : GuiItemBase
     {
         protected const int NormalizedLetterWidth = 8;
         protected const int NormalizedLetterHeight = 8;
@@ -54,7 +54,7 @@ namespace OpenGoldenSunWindows
             CenterCharacters = centerCharacters;
         }
 
-        public void Load(ContentManager content)
+        public override void Load(ContentManager content)
         {
             // Load the font only once
             if (Font == null) {
@@ -109,7 +109,7 @@ namespace OpenGoldenSunWindows
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             if (Alignment == TextAlignment.Left) {
                 DrawLeftAligned (spriteBatch);

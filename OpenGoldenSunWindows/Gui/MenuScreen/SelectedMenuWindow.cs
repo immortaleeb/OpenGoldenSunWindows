@@ -14,21 +14,15 @@ namespace OpenGoldenSunWindows.Gui.MenuScreen
         public SelectedMenuWindow (SelectedItem<Icons> selectedMenuItem) : base(144, 136, 72, 24)
         {
             this.selectedMenuItem = selectedMenuItem;
-            textBox = new TextLabel (new Vector2 (0, 0));
+
+            Add (textBox = new TextLabel (new Vector2 (X + 8, Y + 8)));
         }
 
-        public override void Load (ContentManager content)
-        {
-            base.Load (content);
-
-            textBox.Load (content);
-        }
-
-        protected override void DrawContent (SpriteBatch spriteBatch, GameTime gameTime)
+        public override void Update (GameTime gameTime)
         {
             textBox.Text = Enum.GetName (typeof(Icons), selectedMenuItem.Item);
-            textBox.Position = new Vector2 (X + 8, Y + 8);
-            textBox.Draw (spriteBatch);
+
+            base.Update (gameTime);
         }
     }
 }

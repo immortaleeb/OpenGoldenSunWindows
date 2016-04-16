@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace OpenGoldenSunWindows.Gui
 {
-    public abstract class WindowBase : Window
+    public abstract class WindowBase : GuiItemCollection, Window
     {
         public int X { get; }
         public int Y { get; }
@@ -145,19 +145,12 @@ namespace OpenGoldenSunWindows.Gui
             DrawOutsideBorder (spriteBatch);
         }
 
-        protected abstract void DrawContent (SpriteBatch spriteBatch, GameTime gameTime);
-
-        public virtual void Load(ContentManager content)
+        protected virtual void DrawContent (SpriteBatch spriteBatch, GameTime gameTime)
         {
-            // Do nothing by default
+            base.Draw (spriteBatch, gameTime);
         }
 
-        public virtual void Update (GameTime gameTime)
-        {
-            // Do nothing by default
-        }
-
-        public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             DrawFrame (spriteBatch, gameTime);
             DrawContent (spriteBatch, gameTime);

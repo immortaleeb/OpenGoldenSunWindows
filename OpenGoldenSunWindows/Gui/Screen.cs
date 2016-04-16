@@ -5,13 +5,8 @@ using Microsoft.Xna.Framework.Content;
 
 namespace OpenGoldenSunWindows.Gui
 {
-    public interface Screen
+    public interface Screen : GuiItem
     {
-        void Load (ContentManager content);
-
-        void Update (GameTime gameTime);
-
-        void Draw (SpriteBatch spriteBatch, GameTime gameTime);
     }
 }
 
