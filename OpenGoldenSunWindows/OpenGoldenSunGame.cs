@@ -105,7 +105,6 @@ namespace OpenGoldenSunWindows
             spriteBatch = new SpriteBatch (GraphicsDevice);
 
             // Helpers
-            FontRenderer.Load (Content);
             CharacterRenderer.Load (Content);
             IconRenderer.Load (Content);
 

@@ -33,6 +33,8 @@ namespace OpenGoldenSunWindows.Gui.MenuScreen
             djinnMenuItem.Load (content);
             itemsMenuItem.Load (content);
             statusMenuItem.Load (content);
+
+            selectedMenuWindow.Load (content);
         }
 
         public override void Update (GameTime gameTime)

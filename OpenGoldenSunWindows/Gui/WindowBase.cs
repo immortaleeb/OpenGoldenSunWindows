@@ -147,6 +147,11 @@ namespace OpenGoldenSunWindows.Gui
 
         protected abstract void DrawContent (SpriteBatch spriteBatch, GameTime gameTime);
 
+        public virtual void Load(ContentManager content)
+        {
+            // Do nothing by default
+        }
+
         public virtual void Update (GameTime gameTime)
         {
             // Do nothing by default
