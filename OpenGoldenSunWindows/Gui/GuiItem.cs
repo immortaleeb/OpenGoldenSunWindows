@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OpenGoldenSunWindows.Gui
 {
-    public interface GuiItem
+    public interface GuiItem : IDrawableComponent, IUpdateableComponent, ILoadableComponent
     {
         void Load (ContentManager content);
 

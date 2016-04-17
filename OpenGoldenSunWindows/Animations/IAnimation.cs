@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OpenGoldenSunWindows.Animations
 {
-    public interface IAnimation
+    public interface IAnimation : ILoadableComponent, IUpdateableComponent, IDrawableComponent
     {
         void Load (ContentManager content);
 

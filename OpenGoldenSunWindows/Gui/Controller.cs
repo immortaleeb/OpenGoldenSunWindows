@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace OpenGoldenSunWindows.Gui
 {
-    public interface Controller
+    public interface Controller : IUpdateableComponent
     {
         void Update(GameTime gametime);
     }
