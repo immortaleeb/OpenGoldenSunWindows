@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using OpenGoldenSunWindows.Characters;
 using OpenGoldenSunWindows.Gui;
 using OpenGoldenSunWindows.Utils;
+using OpenGoldenSunWindows.Animations;
 
 namespace OpenGoldenSunWindows.Gui.StatusScreen
 {
@@ -39,9 +40,18 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
         IntegerLabel fireDjinn;
         IntegerLabel windDjinn;
 
+        WalkingDjinniAnimation[] djinnAnimations;
+
         public StatusWindow (Reference<Character> selectedCharacter, int x, int y, int width, int height) : base(x, y, width, height)
         {
             this.selectedCharacter = selectedCharacter;
+
+            djinnAnimations = new WalkingDjinniAnimation[4] {
+                new WalkingDjinniAnimation(Element.Earth, new Vector2 (X + 115, Y + 58), SpriteEffects.FlipHorizontally),
+                new WalkingDjinniAnimation(Element.Water, new Vector2 (X + 147, Y + 58), SpriteEffects.FlipHorizontally),
+                new WalkingDjinniAnimation(Element.Fire, new Vector2 (X + 180, Y + 58), SpriteEffects.FlipHorizontally),
+                new WalkingDjinniAnimation(Element.Wind, new Vector2 (X + 211, Y + 58), SpriteEffects.FlipHorizontally)
+            };
 
             Add (portrait = new PortraitImage(selectedCharacter.Value, new Vector2(X + 8, Y + 8)));
             Add (characterName = new TextLabel (new Vector2 (X + 48, Y + 8)));
@@ -83,8 +93,41 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
             Add (windDjinn = new IntegerLabel (new Vector2 (X + 232, Y + 96)));
         }
 
+        public override void Load (Microsoft.Xna.Framework.Content.ContentManager content)
+        {
+            base.Load (content);
+
+            foreach (var animation in djinnAnimations) {
+                animation.Load (content);
+            }
+        }
+
+        public override void Start ()
+        {
+            base.Start ();
+
+            foreach (var animation in djinnAnimations) {
+                animation.Play ();
+            }
+        }
+
+        public override void Stop ()
+        {
+            base.Stop ();
+
+            foreach (var animation in djinnAnimations) {
+                animation.Stop ();
+            }
+        }
+
         public override void Update (GameTime gameTime)
         {
+            // Update animations
+            foreach (var animation in djinnAnimations) {
+                animation.Update (gameTime);
+            }
+
+            // Update character info
             Character character = selectedCharacter.Value;
 
             portrait.Character = character;
@@ -116,10 +159,9 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
             Character character = selectedCharacter.Value;
 
             // Djinni
-            CharacterRenderer.GetDjinniTexture (Element.Earth).Draw(spriteBatch, new Vector2 (X + 115, Y + 58), null, 0, null, SpriteEffects.FlipHorizontally);
-            CharacterRenderer.GetDjinniTexture (Element.Water).Draw(spriteBatch, new Vector2 (X + 147, Y + 58), null, 0, null, SpriteEffects.FlipHorizontally);
-            CharacterRenderer.GetDjinniTexture (Element.Fire).Draw(spriteBatch, new Vector2 (X + 180, Y + 58), null, 0, null, SpriteEffects.FlipHorizontally);
-            CharacterRenderer.GetDjinniTexture (Element.Wind).Draw(spriteBatch, new Vector2 (X + 211, Y + 58), null, 0, null, SpriteEffects.FlipHorizontally);
+            foreach (var animation in djinnAnimations) {
+                animation.Draw (spriteBatch, gameTime);
+            }
 
             Utils.IconRenderer.DrawElementIcon (Element.Earth, spriteBatch, new Vector2 (X + 129, Y + 89), Color.White);
             Utils.IconRenderer.DrawElementIcon (Element.Water, spriteBatch, new Vector2 (X + 161, Y + 89), Color.White);

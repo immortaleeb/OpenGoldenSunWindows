@@ -3,75 +3,68 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using OpenGoldenSunWindows.Animations;
 using OpenGoldenSunWindows.Utils;
+using System.Collections.Generic;
 
 namespace OpenGoldenSunWindows.Gui.MenuScreen
 {
     public class MenuScreen : ScreenBase
     {
-        MenuItemAnimation psynergyMenuItem;
-        MenuItemAnimation djinnMenuItem;
-        MenuItemAnimation itemsMenuItem;
-        MenuItemAnimation statusMenuItem;
+        IList<MenuItemAnimation> menuItems;
 
         SelectedMenuWindow selectedMenuWindow;
 
         public MenuScreen (SelectedItem<Icons> selectedMenuItem, MenuController controller) : base(controller)
         {
-            psynergyMenuItem = new MenuItemAnimation (selectedMenuItem, OpenGoldenSunWindows.Utils.Icons.Psynergy);
-            djinnMenuItem = new MenuItemAnimation (selectedMenuItem, OpenGoldenSunWindows.Utils.Icons.Djinn);
-            itemsMenuItem = new MenuItemAnimation (selectedMenuItem, OpenGoldenSunWindows.Utils.Icons.Item);
-            statusMenuItem = new MenuItemAnimation (selectedMenuItem, OpenGoldenSunWindows.Utils.Icons.Status);
+            menuItems = new List<MenuItemAnimation> (4);
+            menuItems.Add (new MenuItemAnimation (selectedMenuItem, OpenGoldenSunWindows.Utils.Icons.Psynergy, new Vector2 (48, 136)));
+            menuItems.Add (new MenuItemAnimation (selectedMenuItem, OpenGoldenSunWindows.Utils.Icons.Djinn, new Vector2 (72, 136)));
+            menuItems.Add (new MenuItemAnimation (selectedMenuItem, OpenGoldenSunWindows.Utils.Icons.Item, new Vector2 (96, 136)));
+            menuItems.Add (new MenuItemAnimation (selectedMenuItem, OpenGoldenSunWindows.Utils.Icons.Status, new Vector2 (120, 136)));
 
-            selectedMenuWindow = new SelectedMenuWindow (selectedMenuItem);
-            Add (selectedMenuWindow);
+            Add (selectedMenuWindow = new SelectedMenuWindow (selectedMenuItem));
         }
 
         public override void Load (Microsoft.Xna.Framework.Content.ContentManager content)
         {
-            psynergyMenuItem.Load (content);
-            djinnMenuItem.Load (content);
-            itemsMenuItem.Load (content);
-            statusMenuItem.Load (content);
+            foreach (var item in menuItems) {
+                item.Load (content);
+            }
 
             base.Load (content);
         }
 
         public override void Start ()
         {
-            psynergyMenuItem.Start ();
-            djinnMenuItem.Start ();
-            itemsMenuItem.Start ();
-            statusMenuItem.Start ();
+            foreach (var item in menuItems) {
+                item.Play ();
+            }
 
             base.Start ();
         }
 
         public override void Stop ()
         {
-            psynergyMenuItem.Stop ();
-            djinnMenuItem.Stop ();
-            itemsMenuItem.Stop ();
-            statusMenuItem.Stop ();
+            foreach (var item in menuItems) {
+                item.Stop ();
+            }
 
             base.Stop ();
         }
 
         public override void Update (GameTime gameTime)
         {
-            psynergyMenuItem.Update (gameTime);
-            djinnMenuItem.Update (gameTime);
-            itemsMenuItem.Update (gameTime);
-            statusMenuItem.Update (gameTime);
+            foreach (var item in menuItems) {
+                item.Update (gameTime);
+            }
 
             base.Update (gameTime);
         }
 
         public override void Draw (SpriteBatch spriteBatch, GameTime gameTime)
         {
-            psynergyMenuItem.Draw(spriteBatch, new Vector2(48, 136));
-            djinnMenuItem.Draw(spriteBatch, new Vector2(72, 136));
-            itemsMenuItem.Draw(spriteBatch, new Vector2(96, 136));
-            statusMenuItem.Draw(spriteBatch, new Vector2(120, 136));
+            foreach (var item in menuItems) {
+                item.Draw (spriteBatch, gameTime);
+            }
 
             base.Draw (spriteBatch, gameTime);
         }

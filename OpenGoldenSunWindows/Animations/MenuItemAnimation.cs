@@ -6,7 +6,7 @@ using OpenGoldenSunWindows.Utils;
 
 namespace OpenGoldenSunWindows.Animations
 {
-    public class MenuItemAnimation
+    public class MenuItemAnimation : AnimationBase
     {
         const float FrameDuration = 0.12f;
         const int FrameCount = 2;
@@ -19,7 +19,7 @@ namespace OpenGoldenSunWindows.Animations
         Texture2D texture;
         SelectedItem<Icons> selectedMenuItem;
 
-        public MenuItemAnimation (SelectedItem<Icons> selectedMenuItem, Icons icon)
+        public MenuItemAnimation (SelectedItem<Icons> selectedMenuItem, Icons icon, Vector2 position) : base (position)
         {
             this.selectedMenuItem = selectedMenuItem;
             this.icon = icon;
@@ -33,12 +33,12 @@ namespace OpenGoldenSunWindows.Animations
             return selectedMenuItem.Item == icon;
         }
 
-        public void Load(ContentManager content)
+        public override void Load(ContentManager content)
         {
             texture = IconRenderer.GetIconTexture (icon);
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             if (!isRunning)
                 return;
@@ -51,26 +51,31 @@ namespace OpenGoldenSunWindows.Animations
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position)
+        public override void Draw (SpriteBatch spriteBatch, GameTime gameTime)
         {
             if (!isRunning)
                 return;
             
             if (IsSelected ()) {
-                spriteBatch.Draw (texture, null, new Rectangle((int)position.X - 1 - frame, (int)position.Y - 4 - frame, 28 + frame, 28 + frame), null, null, 0);
+                spriteBatch.Draw (texture, null, new Rectangle((int)Position.X - 1 - frame, (int)Position.Y - 4 - frame, 28 + frame, 28 + frame), null, null, 0);
             } else {
-                spriteBatch.Draw (texture, position);
+                spriteBatch.Draw (texture, Position);
             }
         }
 
-        public void Start ()
+        public override void Play ()
         {
             isRunning = true;
         }
 
-        public void Stop ()
+        public override void Pause ()
         {
             isRunning = false;
+        }
+
+        public override void Stop ()
+        {
+            Pause ();
         }
     }
 }

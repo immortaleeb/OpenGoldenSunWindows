@@ -58,6 +58,7 @@ namespace OpenGoldenSunWindows.Utils
             }
         }
 
+        // TODO refactor method
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Vector2? origin = null, float rotation = 0, Color? color = null, SpriteEffects spriteEffects = SpriteEffects.None)
         {
             Rectangle source = new Rectangle (
