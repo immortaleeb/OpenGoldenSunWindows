@@ -33,7 +33,7 @@ namespace OpenGoldenSunWindows.Gui.MenuScreen
             }
 
             if (WasPressed (state, Keys.A)) {
-                ScreenManager.ChangeScreen (ScreenManager.statusScreen);
+                ScreenManager.ChangeScreen (Screens.Status);
             }
 
             UpdateKeyboardState (state);

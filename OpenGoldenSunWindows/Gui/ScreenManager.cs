@@ -6,35 +6,59 @@ using OpenGoldenSunWindows.Characters;
 using OpenGoldenSunWindows.Gui.MenuScreen;
 using OpenGoldenSunWindows.Gui.StatusScreen;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace OpenGoldenSunWindows.Gui
 {
+    public enum Screens
+    {
+        Menu,
+        Status
+    }
+
     public class ScreenManager
     {
-        private static Screen selectedScreen;
-        public static Screen SelectedScreen { get { return selectedScreen; } }
+        private static Screens selectedScreenIndex;
 
-        public static OpenGoldenSunWindows.Gui.MenuScreen.MenuScreen menuScreen;
-        public static OpenGoldenSunWindows.Gui.StatusScreen.StatusScreen statusScreen;
+        public static Screens SelectedScreenIndex { get { return selectedScreenIndex; } }
+        public static Screen SelectedScreen { get { return screens [(int)selectedScreenIndex]; } }
+        public static Controller SelectedController { get { return controllers [(int)selectedScreenIndex]; } }
+
+        private static Screen[] screens;
+        private static Controller[] controllers;
 
         static ScreenManager ()
         {
+            int length = Enum.GetValues (typeof(Screens)).Length;
+            screens = new Screen[length];
+            controllers = new Controller[length];
+        }
+
+        private static void RegisterScreen(Screens screenIndex, Screen screen, Controller controller)
+        {
+            int index = (int)screenIndex;
+            screens [index] = screen;
+            controllers [index] = controller;
         }
 
         private static void InitMenuScreen()
         {
             Icons[] menuItems = { Icons.Psynergy, Icons.Djinn, Icons.Item, Icons.Status };
             SelectedItem<Icons> selectedMenuItem = new SelectedItem<Icons> (0, menuItems);
-            MenuController controller = new MenuController (selectedMenuItem);
-            menuScreen = new OpenGoldenSunWindows.Gui.MenuScreen.MenuScreen (selectedMenuItem, controller);
+            var controller = new MenuController (selectedMenuItem);
+            var menuScreen = new OpenGoldenSunWindows.Gui.MenuScreen.MenuScreen (selectedMenuItem);
+
+            RegisterScreen (Screens.Menu, menuScreen, controller);
         }
 
         private static void InitStatusScreen(Party party)
         {
             Reference<int> cursorPosition = new Reference<int> (0);
             Reference<Character> selectedCharacter = new Reference<Character> (null);
-            StatusScreenController controller = new StatusScreenController (cursorPosition, selectedCharacter, party);
-            statusScreen = new OpenGoldenSunWindows.Gui.StatusScreen.StatusScreen (controller, cursorPosition, selectedCharacter, party);
+            var controller = new StatusScreenController (cursorPosition, selectedCharacter, party);
+            var statusScreen = new OpenGoldenSunWindows.Gui.StatusScreen.StatusScreen (cursorPosition, selectedCharacter, party);
+
+            RegisterScreen (Screens.Status, statusScreen, controller);
         }
 
         public static void Initialize(Party party)
@@ -42,17 +66,20 @@ namespace OpenGoldenSunWindows.Gui
             InitMenuScreen ();
             InitStatusScreen (party);
 
-            ChangeScreen (menuScreen);
+            ChangeScreen (Screens.Menu);
         }
 
         public static void Load(ContentManager content)
         {
-            menuScreen.Load (content);
-            statusScreen.Load (content);
+            foreach (var screen in screens)
+            {
+                screen.Load (content);
+            }
         }
 
         public static void Update(GameTime gameTime)
         {
+            SelectedController.Update (gameTime);
             SelectedScreen.Update (gameTime);
         }
 
@@ -61,11 +88,15 @@ namespace OpenGoldenSunWindows.Gui
             SelectedScreen.Draw(spriteBatch, gameTime);
         }
 
-        public static void ChangeScreen(Screen newScreen)
+        public static void ChangeScreen(Screens newScreenIndex)
         {
-            selectedScreen?.Stop ();
+            Screen oldScreen = SelectedScreen;
+            Screen newScreen = screens [(int)newScreenIndex];
+
+            oldScreen?.Stop ();
             newScreen?.Start ();
-            selectedScreen = newScreen;
+
+            selectedScreenIndex = newScreenIndex;
         }
     }
 }

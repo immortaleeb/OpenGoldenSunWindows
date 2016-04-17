@@ -9,7 +9,7 @@ namespace OpenGoldenSunWindows.Gui.MenuScreen
 {
     public class MenuScreen : ScreenBase
     {
-        public MenuScreen (SelectedItem<Icons> selectedMenuItem, MenuController controller) : base(controller)
+        public MenuScreen (SelectedItem<Icons> selectedMenuItem)
         {
             Add (new SelectedMenuWindow (selectedMenuItem));
 

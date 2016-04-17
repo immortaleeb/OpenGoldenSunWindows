@@ -8,19 +8,6 @@ namespace OpenGoldenSunWindows.Gui
 {
     public abstract class ScreenBase : GuiItemCollection, Screen
     {
-        public Controller Controller { get; }
-
-        public ScreenBase (Controller controller)
-        {
-            Controller = controller;
-        }
-
-        public virtual void Update (GameTime gameTime)
-        {
-            Controller.Update (gameTime);
-
-            base.Update (gameTime);
-        }
     }
 }
 
