@@ -18,32 +18,32 @@ namespace OpenGoldenSunWindows.Animations
 
         public override void Update (GameTime gameTime)
         {
-            Texture.Update (gameTime);
+            Texture?.Update (gameTime);
         }
 
         public override void Draw (SpriteBatch spriteBatch, GameTime gameTime)
         {
-            Texture.Draw (spriteBatch, Position);
+            Texture?.Draw (spriteBatch, Position);
         }
 
         public override void Play ()
         {
-            Texture.Play ();
+            Texture?.Play ();
         }
 
         public override void Pause ()
         {
-            Texture.Pause ();
+            Texture?.Pause ();
         }
 
         public override void Reset ()
         {
-            Texture.Reset ();
+            Texture?.Reset ();
         }
 
         public override void Stop ()
         {
-            Texture.Stop ();
+            Texture?.Stop ();
         }
     }
 }

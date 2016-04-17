@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using OpenGoldenSunWindows.Characters;
 using OpenGoldenSunWindows.Gui;
 using OpenGoldenSunWindows.Utils;
+using OpenGoldenSunWindows.Animations;
 
 namespace OpenGoldenSunWindows.Gui.StatusScreen
 {
@@ -15,10 +16,18 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
         Reference<int> selectedPlayer;
         const int spacing = 25;
 
+        int previousSelectedPlayer = -1;
+
+        WalkingCharacterAnimation[] characterSpots = new WalkingCharacterAnimation[4];
+
         public PlayerWindow (Party party, Reference<int> selectedPlayer, int x, int y, int width, int height) : base(x, y, width, height)
         {
             this.party = party;
             this.selectedPlayer = selectedPlayer;
+
+            for (int i = 0; i < characterSpots.Length; i++) {
+                Add (characterSpots [i] = new WalkingCharacterAnimation (new Vector2 (X - 1 + i * spacing, Y)));
+            }
         }
 
         private bool IsPlayerSelected(int i)
@@ -26,13 +35,40 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
             return selectedPlayer.Value == i;
         }
 
-        protected override void DrawContent (SpriteBatch spriteBatch, GameTime gameTime)
+        private bool WasPlayerSelected (int i)
+        {
+            return previousSelectedPlayer == i;
+        }
+
+        public override void Update (GameTime gameTime)
         {
             for (int i = 0; i < party.Characters.Count; i++) {
                 var character = party.Characters [i];
-                int yOffset = IsPlayerSelected (i) ? -4 : 0;
 
-                CharacterRenderer.GetCharacterTexture (character).Draw (spriteBatch, new Vector2 (X - 1 + i * spacing, Y + yOffset));
+                // Set the character in that spot
+                characterSpots [i].Character = character;
+
+                // Offset selected player
+                if (IsPlayerSelected (i) && !WasPlayerSelected (i)) {
+                    Vector2 position = characterSpots [i].Position;
+                    position.Y -= 4;
+                    characterSpots [i].Position = position;
+                } else if (WasPlayerSelected (i) && !IsPlayerSelected (i)) {
+                    Vector2 position = characterSpots [i].Position;
+                    position.Y += 4;
+                    characterSpots [i].Position = position;
+                }
+            }
+
+            previousSelectedPlayer = selectedPlayer.Value;
+
+            base.Update (gameTime);
+        }
+
+        protected override void DrawContent (SpriteBatch spriteBatch, GameTime gameTime)
+        {
+            for (int i = 0; i < party.Characters.Count; i++) {
+                characterSpots [i].Draw (spriteBatch, gameTime);
 
                 if (IsPlayerSelected(i)) {
                     IconRenderer.DrawCursor (spriteBatch, new Vector2 (X - 1 + i * spacing, Y + 23), Color.White);

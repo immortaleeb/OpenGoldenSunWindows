@@ -101,7 +101,6 @@ namespace OpenGoldenSunWindows
             spriteBatch = new SpriteBatch (GraphicsDevice);
 
             // Helpers
-            CharacterRenderer.Load (Content);
             IconRenderer.Load (Content);
 
             // Window stuff
@@ -116,9 +115,6 @@ namespace OpenGoldenSunWindows
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update (GameTime gameTime)
         {
-            // Update helpers
-            CharacterRenderer.Update(gameTime);
-
             // Update screens
             ScreenManager.Update(gameTime);
 

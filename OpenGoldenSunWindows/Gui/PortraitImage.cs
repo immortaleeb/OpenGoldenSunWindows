@@ -26,7 +26,7 @@ namespace OpenGoldenSunWindows.Gui
             if (textures == null) {
                 // TODO clean up the way these textures are loaded
                 textures = new Dictionary<string, Texture2D> ();
-                foreach (string name in CharacterRenderer.CharacterNames) {
+                foreach (string name in GlobalReference.CharacterNames) {
                     textures.Add (name, content.Load<Texture2D> ("Sprites/Portraits/" + name));
                 }
             }
