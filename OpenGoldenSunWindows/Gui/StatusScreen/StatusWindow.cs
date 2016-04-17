@@ -14,6 +14,8 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
     {
         Reference<Character> selectedCharacter;
 
+        PortraitImage portrait;
+
         TextLabel characterName;
         IntegerLabel characterLevel;
         IntegerLabel characterExp;
@@ -41,6 +43,7 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
         {
             this.selectedCharacter = selectedCharacter;
 
+            Add (portrait = new PortraitImage(selectedCharacter.Value, new Vector2(X + 8, Y + 8)));
             Add (characterName = new TextLabel (new Vector2 (X + 48, Y + 8)));
             Add (new TextLabel ("Lv", new Vector2 (X + 112, Y + 8)));
             Add (characterLevel = new IntegerLabel (new Vector2 (X + 150, Y + 8)));
@@ -83,6 +86,9 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
         public override void Update (GameTime gameTime)
         {
             Character character = selectedCharacter.Value;
+
+            portrait.Character = character;
+
             characterName.Text = character.Name;
             characterLevel.Number = character.Level;
             characterExp.Number = character.Exp;
@@ -108,7 +114,6 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
         protected override void DrawContent (SpriteBatch spriteBatch, GameTime gameTime)
         {
             Character character = selectedCharacter.Value;
-            CharacterRenderer.DrawPortrait (character, spriteBatch, new Vector2 (X + 8, Y + 8), Color.White);
 
             // Djinni
             CharacterRenderer.GetDjinniTexture (Element.Earth).Draw(spriteBatch, new Vector2 (X + 115, Y + 58), null, 0, null, SpriteEffects.FlipHorizontally);

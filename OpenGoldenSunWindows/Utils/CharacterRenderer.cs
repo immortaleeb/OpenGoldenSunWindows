@@ -12,16 +12,14 @@ namespace OpenGoldenSunWindows.Utils
 {
     public class CharacterRenderer
     {
-        static string[] characterNames = { "Isaac", "Garet", "Jenna" };
+        public static string[] CharacterNames = { "Isaac", "Garet", "Jenna" };
         static IDictionary<string, AnimatedTexture> characterTextures;
-        static IDictionary<string, Texture2D> portraitTextures;
         static AnimatedTexture[] djinnTextures = new AnimatedTexture[Element.All.Length];
 
         static CharacterRenderer()
         {
             characterTextures = new Dictionary<string, AnimatedTexture> ();
-            portraitTextures = new Dictionary<string, Texture2D> ();
-            foreach (string name in characterNames) {
+            foreach (string name in CharacterNames) {
                 characterTextures.Add(name, new AnimatedTexture());
             }
 
@@ -33,7 +31,6 @@ namespace OpenGoldenSunWindows.Utils
         private static void LoadCharacterTextures(ContentManager content, string name, float[] frameTimes)
         {
             characterTextures[name].Load (content, "Sprites/Characters/" + name, frameTimes.Length, frameTimes);
-            portraitTextures.Add (name, content.Load<Texture2D> ("Sprites/Portraits/" + name));
         }
 
         private static void LoadDjinniTextures(ContentManager content, Element element, float[] frameTimes)
@@ -79,12 +76,6 @@ namespace OpenGoldenSunWindows.Utils
         public static AnimatedTexture GetDjinniTexture(Element element)
         {
             return djinnTextures [element.Index];
-        }
-
-        public static void DrawPortrait(Character character, SpriteBatch spriteBatch, Vector2 position, Color color)
-        {
-            var texture = portraitTextures [character.Name];
-            spriteBatch.Draw (texture, position, color);
         }
     }
 }
