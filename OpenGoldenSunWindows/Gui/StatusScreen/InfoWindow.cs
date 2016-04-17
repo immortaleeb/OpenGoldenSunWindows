@@ -17,16 +17,10 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
             Add (new TextLabel ("Rearrange", new Vector2 (x + 46, y + 8)));
             Add (new TextLabel (":", new Vector2 (x + 19, y + 16)));
             Add (new TextLabel ("Details", new Vector2 (x + 23, y + 16)));
-        }
 
-        protected override void DrawContent (SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            // Button image placeholders
-            Utils.IconRenderer.DrawLButton(spriteBatch, new Vector2(X + 8, Y + 8), Color.White);
-            Utils.IconRenderer.DrawRButton(spriteBatch, new Vector2(X + 27, Y + 8), Color.White);
-            Utils.IconRenderer.DrawAButton(spriteBatch, new Vector2(X + 9, Y + 16), Color.White);
-
-            base.DrawContent (spriteBatch, gameTime);
+            Add (new IconLabel (Icons.LButton, new Vector2 (X + 8, Y + 8)));
+            Add (new IconLabel (Icons.RButton, new Vector2 (X + 27, Y + 8)));
+            Add (new IconLabel (Icons.AButton, new Vector2 (X + 9, Y + 16)));
         }
     }
 }

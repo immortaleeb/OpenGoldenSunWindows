@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OpenGoldenSunWindows.Utils;
+using OpenGoldenSunWindows.Gui;
 
 namespace OpenGoldenSunWindows.Animations
 {
@@ -35,7 +36,7 @@ namespace OpenGoldenSunWindows.Animations
 
         public override void Load(ContentManager content)
         {
-            texture = IconRenderer.GetIconTexture (icon);
+            texture = content.Load<Texture2D> ("Sprites/Icons/" + Enum.GetName (typeof(Icons), this.icon));
         }
 
         public override void Update(GameTime gameTime)

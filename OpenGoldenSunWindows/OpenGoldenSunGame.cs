@@ -100,9 +100,6 @@ namespace OpenGoldenSunWindows
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch (GraphicsDevice);
 
-            // Helpers
-            IconRenderer.Load (Content);
-
             // Window stuff
             WindowManager.Load (Content);
             ScreenManager.Load (Content);

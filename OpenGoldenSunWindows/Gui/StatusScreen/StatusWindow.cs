@@ -89,6 +89,11 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
             Add (waterDjinn = new IntegerLabel (new Vector2 (X + 168, Y + 96)));
             Add (fireDjinn = new IntegerLabel (new Vector2 (X + 200, Y + 96)));
             Add (windDjinn = new IntegerLabel (new Vector2 (X + 232, Y + 96)));
+
+            Add (new IconLabel (Icons.Venus, new Vector2 (X + 129, Y + 89)));
+            Add (new IconLabel (Icons.Mercury, new Vector2 (X + 161, Y + 89)));
+            Add (new IconLabel (Icons.Mars, new Vector2 (X + 193, Y + 89)));
+            Add (new IconLabel (Icons.Jupiter, new Vector2 (X + 225, Y + 89)));
         }
 
         public override void Update (GameTime gameTime)
@@ -118,16 +123,6 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
             windDjinn.Number = character.Djinn.Count (d => d.Element == Element.Wind);
 
             base.Update (gameTime);
-        }
-
-        protected override void DrawContent (SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            Utils.IconRenderer.DrawElementIcon (Element.Earth, spriteBatch, new Vector2 (X + 129, Y + 89), Color.White);
-            Utils.IconRenderer.DrawElementIcon (Element.Water, spriteBatch, new Vector2 (X + 161, Y + 89), Color.White);
-            Utils.IconRenderer.DrawElementIcon (Element.Fire, spriteBatch, new Vector2 (X + 193, Y + 89), Color.White);
-            Utils.IconRenderer.DrawElementIcon (Element.Wind, spriteBatch, new Vector2 (X + 225, Y + 89), Color.White);
-
-            base.DrawContent (spriteBatch, gameTime);
         }
     }
 }

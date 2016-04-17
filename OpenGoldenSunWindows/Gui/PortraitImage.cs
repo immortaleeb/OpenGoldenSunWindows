@@ -7,22 +7,25 @@ using System.Collections.Generic;
 
 namespace OpenGoldenSunWindows.Gui
 {
-    public class PortraitImage : GuiItemBase
+    public class PortraitImage : TextureLabel
     {
         private static IDictionary<string, Texture2D> textures;
 
+        public override Texture2D Texture {
+            get {
+                var name = this.Character.Name;
+                return name == null ? null : textures [name];
+            }
+        }
         public Character Character { get; set; }
-        public Vector2 Position { get; set; }
 
-        public PortraitImage (Character character, Vector2 position)
+        public PortraitImage (Character character, Vector2 position) : base (position)
         {
             this.Character = character;
-            this.Position = position;
         }
 
         public override void Load (Microsoft.Xna.Framework.Content.ContentManager content)
         {
-            base.Load (content);
             if (textures == null) {
                 // TODO clean up the way these textures are loaded
                 textures = new Dictionary<string, Texture2D> ();
@@ -30,14 +33,6 @@ namespace OpenGoldenSunWindows.Gui
                     textures.Add (name, content.Load<Texture2D> ("Sprites/Portraits/" + name));
                 }
             }
-        }
-
-        public override void Draw (SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            base.Draw (spriteBatch, gameTime);
-
-            var texture = textures [Character.Name];
-            spriteBatch.Draw (texture, Position);
         }
     }
 }
