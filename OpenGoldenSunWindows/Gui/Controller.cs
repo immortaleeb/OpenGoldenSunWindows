@@ -6,6 +6,8 @@ namespace OpenGoldenSunWindows.Gui
     public interface Controller : IUpdateableComponent
     {
         void Update(GameTime gametime);
+
+        void Reset ();
     }
 }
 

@@ -24,6 +24,8 @@ namespace OpenGoldenSunWindows.Gui
         }
 
         public abstract void Update (GameTime gametime);
+
+        public abstract void Reset ();
     }
 }
 

@@ -28,9 +28,6 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
             this.cursorPosition = cursorPosition;
             this.selectedCharacter = selectedCharacter;
             this.party = party;
-
-            // Sync cursor and selected character the first time
-            selectedCharacter.Value = party.Characters[cursorPosition.Value];
         }
 
         private void MoveCursor(int offset)
@@ -71,6 +68,12 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
             }
 
             UpdateKeyboardState (state);
+        }
+
+        public override void Reset ()
+        {
+            cursorPosition.Value = 0;
+            selectedCharacter.Value = party.Characters[cursorPosition.Value];
         }
     }
 }

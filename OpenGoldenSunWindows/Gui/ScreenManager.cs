@@ -92,8 +92,10 @@ namespace OpenGoldenSunWindows.Gui
         {
             Screen oldScreen = SelectedScreen;
             Screen newScreen = screens [(int)newScreenIndex];
+            Controller newController = controllers [(int)newScreenIndex];
 
             oldScreen?.Stop ();
+            newController?.Reset ();
             newScreen?.Start ();
 
             selectedScreenIndex = newScreenIndex;

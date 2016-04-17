@@ -38,6 +38,11 @@ namespace OpenGoldenSunWindows.Gui.MenuScreen
 
             UpdateKeyboardState (state);
         }
+
+        public override void Reset ()
+        {
+            // Nothing to do
+        }
     }
 }
 
