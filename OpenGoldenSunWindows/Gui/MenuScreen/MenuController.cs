@@ -36,6 +36,10 @@ namespace OpenGoldenSunWindows.Gui.MenuScreen
                 ScreenManager.ChangeScreen (Screens.Status);
             }
 
+            if (WasPressed (state, Keys.R)) {
+                OpenGoldenSunGame.Party.Characters.RemoveAt (0);
+            }
+
             UpdateKeyboardState (state);
         }
 

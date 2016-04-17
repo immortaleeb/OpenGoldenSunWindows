@@ -30,7 +30,7 @@ namespace OpenGoldenSunWindows
         SpriteBatch spriteBatch;
         RenderTarget2D target;
 
-        Party party;
+        public static Party Party;
 
         public OpenGoldenSunGame ()
         {
@@ -62,7 +62,7 @@ namespace OpenGoldenSunWindows
             characters.Add (isaac);
             characters.Add (garet);
             characters.Add (jenna);
-            party = new Party(characters);
+            Party = new Party(characters);
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace OpenGoldenSunWindows
 
             // Create the windows
             WindowManager.Initialize(GraphicsDevice);
-            ScreenManager.Initialize (party);
+            ScreenManager.Initialize (Party);
 
             base.Initialize ();
 
