@@ -9,9 +9,9 @@ namespace OpenGoldenSunWindows.Gui
     {
         void Load (ContentManager content);
 
-        void Start();
+        bool IsVisible { get; }
 
-        void Stop();
+        void SetVisible (bool visible);
 
         void Update (GameTime gameTime);
 

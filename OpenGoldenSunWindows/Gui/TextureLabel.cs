@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace OpenGoldenSunWindows.Gui
 {
-    public abstract class TextureLabel : GuiItem
+    public abstract class TextureLabel : GuiItemBase
     {
         public Vector2 Position { get; set; }
         public virtual Texture2D Texture { get; set; }
@@ -15,23 +15,15 @@ namespace OpenGoldenSunWindows.Gui
             this.Position = position;
         }
 
-        public abstract void Load(ContentManager content);
+        public override abstract void Load(ContentManager content);
 
-        public void Update (GameTime gameTime)
+        public override void Update (GameTime gameTime)
         { 
         }
 
-        public void Draw (SpriteBatch spriteBatch, GameTime gameTime)
+        public override void Draw (SpriteBatch spriteBatch, GameTime gameTime)
         {
             spriteBatch.Draw (Texture, Position);
-        }
-
-        public void Start ()
-        {
-        }
-
-        public void Stop ()
-        {
         }
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OpenGoldenSunWindows.Gui
 {
-    public class AnimationLabel : GuiItem
+    public class AnimationLabel : GuiItemBase
     {
         public IAnimation Animation { get; }
 
@@ -15,27 +15,27 @@ namespace OpenGoldenSunWindows.Gui
             this.Animation = animation;
         }
 
-        public virtual void Load (ContentManager content)
+        public override void Load (ContentManager content)
         {
             this.Animation.Load (content);
         }
 
-        public virtual void Start()
+        protected override void OnShow ()
         {
             this.Animation.Play ();
         }
 
-        public virtual void Stop()
+        protected override void OnHide ()
         {
             this.Animation.Stop ();
         }
 
-        public virtual void Update (GameTime gameTime)
+        public override void Update (GameTime gameTime)
         {
             this.Animation.Update (gameTime);
         }
 
-        public virtual void Draw (SpriteBatch spriteBatch, GameTime gameTime)
+        public override void Draw (SpriteBatch spriteBatch, GameTime gameTime)
         {
             this.Animation.Draw (spriteBatch, gameTime);
         }

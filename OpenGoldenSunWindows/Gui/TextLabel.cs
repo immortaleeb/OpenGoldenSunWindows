@@ -122,6 +122,20 @@ namespace OpenGoldenSunWindows.Gui
             }
         }
 
+        protected override void OnHide ()
+        {
+            // Nothing to do
+        }
+
+        protected override void OnShow ()
+        {
+            // Nothing to do
+        }
+
+        public override void Update (GameTime gameTime)
+        {
+            // Nothing to do
+        }
     }
 }
 

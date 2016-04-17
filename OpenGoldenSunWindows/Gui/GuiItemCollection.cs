@@ -7,7 +7,7 @@ using OpenGoldenSunWindows.Animations;
 
 namespace OpenGoldenSunWindows.Gui
 {
-    public class GuiItemCollection : GuiItem
+    public class GuiItemCollection : GuiItemBase
     {
         public IList<GuiItem> Children { get; }
 
@@ -26,38 +26,35 @@ namespace OpenGoldenSunWindows.Gui
             Children.Add (new AnimationLabel (animation));
         }
 
-        public virtual void Load (ContentManager content)
+        public override void Load (ContentManager content)
         {
             foreach (var child in Children) {
                 child.Load (content);
             }
         }
 
-        public virtual void Start()
+        public override void SetVisible(bool visible)
         {
             foreach (var child in Children) {
-                child.Start ();
+                child.SetVisible (visible);
+            }
+
+            base.SetVisible (visible);
+        }
+
+        public override void Update (GameTime gameTime)
+        {
+            foreach (var child in Children) {
+                if (child.IsVisible)
+                    child.Update (gameTime);
             }
         }
 
-        public virtual void Stop()
+        public override void Draw (SpriteBatch spriteBatch, GameTime gameTime)
         {
             foreach (var child in Children) {
-                child.Stop ();
-            }
-        }
-
-        public virtual void Update (GameTime gameTime)
-        {
-            foreach (var child in Children) {
-                child.Update (gameTime);
-            }
-        }
-
-        public virtual void Draw (SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            foreach (var child in Children) {
-                child.Draw (spriteBatch, gameTime);
+                if (child.IsVisible)
+                    child.Draw (spriteBatch, gameTime);
             }
         }
     }

@@ -12,6 +12,7 @@ namespace OpenGoldenSunWindows.Gui
 {
     public enum Screens
     {
+        None,
         Menu,
         Status
     }
@@ -71,9 +72,9 @@ namespace OpenGoldenSunWindows.Gui
 
         public static void Load(ContentManager content)
         {
-            foreach (var screen in screens)
+            foreach (Screen screen in screens)
             {
-                screen.Load (content);
+                screen?.Load (content);
             }
         }
 
@@ -94,9 +95,9 @@ namespace OpenGoldenSunWindows.Gui
             Screen newScreen = screens [(int)newScreenIndex];
             Controller newController = controllers [(int)newScreenIndex];
 
-            oldScreen?.Stop ();
+            oldScreen?.SetVisible (false);
             newController?.Reset ();
-            newScreen?.Start ();
+            newScreen?.SetVisible (true);
 
             selectedScreenIndex = newScreenIndex;
         }
