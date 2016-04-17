@@ -4,13 +4,15 @@ using Microsoft.Xna.Framework;
 using OpenGoldenSunWindows.Animations;
 using OpenGoldenSunWindows.Utils;
 using System.Collections.Generic;
+using OpenGoldenSunWindows.Characters;
 
 namespace OpenGoldenSunWindows.Gui.MenuScreen
 {
     public class MenuScreen : ScreenBase
     {
-        public MenuScreen (SelectedItem<Icons> selectedMenuItem)
+        public MenuScreen (Party party, SelectedItem<Icons> selectedMenuItem)
         {
+            Add (new PartySummaryWindow (party));
             Add (new SelectedMenuWindow (selectedMenuItem));
 
             Add (new MenuItemAnimation (selectedMenuItem, Icons.Psynergy, new Vector2 (48, 136)));

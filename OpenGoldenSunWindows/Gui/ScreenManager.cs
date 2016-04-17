@@ -41,12 +41,12 @@ namespace OpenGoldenSunWindows.Gui
             controllers [index] = controller;
         }
 
-        private static void InitMenuScreen()
+        private static void InitMenuScreen(Party party)
         {
             Icons[] menuItems = { Icons.Psynergy, Icons.Djinn, Icons.Item, Icons.Status };
             SelectedItem<Icons> selectedMenuItem = new SelectedItem<Icons> (0, menuItems);
             var controller = new MenuController (selectedMenuItem);
-            var menuScreen = new OpenGoldenSunWindows.Gui.MenuScreen.MenuScreen (selectedMenuItem);
+            var menuScreen = new OpenGoldenSunWindows.Gui.MenuScreen.MenuScreen (party, selectedMenuItem);
 
             RegisterScreen (Screens.Menu, menuScreen, controller);
         }
@@ -63,7 +63,7 @@ namespace OpenGoldenSunWindows.Gui
 
         public static void Initialize(Party party)
         {
-            InitMenuScreen ();
+            InitMenuScreen (party);
             InitStatusScreen (party);
 
             ChangeScreen (Screens.Menu);

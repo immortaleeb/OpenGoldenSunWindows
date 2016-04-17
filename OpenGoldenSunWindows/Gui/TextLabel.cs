@@ -112,6 +112,9 @@ namespace OpenGoldenSunWindows.Gui
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
+            if (Text == null)
+                return;
+            
             if (Alignment == TextAlignment.Left) {
                 DrawLeftAligned (spriteBatch);
             } else {
