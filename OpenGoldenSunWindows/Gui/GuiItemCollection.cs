@@ -10,12 +10,10 @@ namespace OpenGoldenSunWindows.Gui
     public class GuiItemCollection : GuiItem
     {
         public IList<GuiItem> Children { get; }
-        public IList<IAnimation> Animations { get; }
 
         public GuiItemCollection ()
         {
             Children = new List<GuiItem> ();
-            Animations = new List<IAnimation> ();
         }
 
         protected void Add(GuiItem child)
@@ -25,15 +23,11 @@ namespace OpenGoldenSunWindows.Gui
 
         protected void Add(IAnimation animation)
         {
-            Animations.Add (animation);
+            Children.Add (new AnimationLabel (animation));
         }
 
         public virtual void Load (ContentManager content)
         {
-            foreach (var animation in Animations) {
-                animation.Load (content);
-            }
-
             foreach (var child in Children) {
                 child.Load (content);
             }
@@ -41,10 +35,6 @@ namespace OpenGoldenSunWindows.Gui
 
         public virtual void Start()
         {
-            foreach (var animation in Animations) {
-                animation.Play ();
-            }
-
             foreach (var child in Children) {
                 child.Start ();
             }
@@ -52,10 +42,6 @@ namespace OpenGoldenSunWindows.Gui
 
         public virtual void Stop()
         {
-            foreach (var animation in Animations) {
-                animation.Stop ();
-            }
-
             foreach (var child in Children) {
                 child.Stop ();
             }
@@ -63,10 +49,6 @@ namespace OpenGoldenSunWindows.Gui
 
         public virtual void Update (GameTime gameTime)
         {
-            foreach (var animation in Animations) {
-                animation.Update (gameTime);
-            }
-
             foreach (var child in Children) {
                 child.Update (gameTime);
             }
@@ -74,10 +56,6 @@ namespace OpenGoldenSunWindows.Gui
 
         public virtual void Draw (SpriteBatch spriteBatch, GameTime gameTime)
         {
-            foreach (var animation in Animations) {
-                animation.Draw (spriteBatch, gameTime);
-            }
-
             foreach (var child in Children) {
                 child.Draw (spriteBatch, gameTime);
             }
