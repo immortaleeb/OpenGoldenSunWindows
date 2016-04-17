@@ -24,12 +24,14 @@ namespace OpenGoldenSunWindows.Gui
 
         public virtual void SetVisible(bool visible)
         {
-            if (visible)
-                OnShow ();
-            else
-                OnHide ();
+            if (this.isVisible != visible) {
+                if (visible)
+                    OnShow ();
+                else
+                    OnHide ();
             
-            this.isVisible = visible;
+                this.isVisible = visible;
+            }
         }
 
         public abstract void Update (GameTime gameTime);

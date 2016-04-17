@@ -22,9 +22,16 @@ namespace OpenGoldenSunWindows.Gui.MenuScreen
         {
             base.Update (gameTime);
 
-            for (int i = 0; i < this.party.Characters.Count; i++) {
-                var character = this.party.Characters [i];
-                panes [i].Character = character;
+            var characters = this.party.Characters;
+            for (int i = 0; i < panes.Length; i++) {
+                var pane = panes [i];
+                if (i < characters.Count) {
+                    pane.SetVisible (true);
+                    pane.Character = characters [i];
+                } else {
+                    pane.SetVisible (false);
+                    pane.Character = null;
+                }
             } 
         }
     }
