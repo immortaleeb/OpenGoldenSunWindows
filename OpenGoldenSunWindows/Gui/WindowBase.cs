@@ -10,10 +10,10 @@ namespace OpenGoldenSunWindows.Gui
 {
     public abstract class WindowBase : GuiItemCollection, Window
     {
-        public int X { get; }
-        public int Y { get; }
-        public int Width { get; }
-        public int Height { get; }
+        public virtual int X { get; }
+        public virtual int Y { get; }
+        public virtual int Width { get; }
+        public virtual int Height { get; }
 
         Color shadeColor = Color.Black;
         Color variantDifference = new Color(0, 8, 16);

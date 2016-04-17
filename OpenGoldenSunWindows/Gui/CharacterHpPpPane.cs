@@ -7,7 +7,7 @@ namespace OpenGoldenSunWindows.Gui
     public class CharacterHpPpPane : GuiItemCollection
     {
         public Character Character { get; set; }
-        public Vector2 Position { get; }
+        public Vector2 Position { get; set; }
 
         private TextLabel characterName;
         private ValueBar hpBar;

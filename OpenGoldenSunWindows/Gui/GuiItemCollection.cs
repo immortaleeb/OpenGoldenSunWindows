@@ -26,6 +26,11 @@ namespace OpenGoldenSunWindows.Gui
             Children.Add (new AnimationLabel (animation));
         }
 
+        protected void Remove(GuiItem child)
+        {
+            Children.Remove (child);
+        }
+
         public override void Load (ContentManager content)
         {
             foreach (var child in Children) {
