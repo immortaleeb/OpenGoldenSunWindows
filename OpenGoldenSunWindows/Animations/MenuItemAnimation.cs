@@ -7,26 +7,19 @@ using OpenGoldenSunWindows.Gui;
 
 namespace OpenGoldenSunWindows.Animations
 {
-    public class MenuItemAnimation : AnimationBase
+    public class MenuItemAnimation : TextureTransformAnimation
     {
-        const float FrameDuration = 0.12f;
-        const int FrameCount = 2;
-        float elapsedTime;
-        int frame;
-
-        private bool isRunning;
-
         Icons icon;
-        Texture2D texture;
         SelectedItem<Icons> selectedMenuItem;
 
-        public MenuItemAnimation (SelectedItem<Icons> selectedMenuItem, Icons icon, Vector2 position) : base (position)
+        private Texture2D texture;
+        public override Texture2D Texture { get { return texture; } }
+
+        public MenuItemAnimation (SelectedItem<Icons> selectedMenuItem, Icons icon, Vector2 position)
+            : base (position, 2, 0.12f)
         {
             this.selectedMenuItem = selectedMenuItem;
             this.icon = icon;
-            elapsedTime = 0;
-            frame = 0;
-            isRunning = true;
         }
 
         public bool IsSelected()
@@ -39,44 +32,16 @@ namespace OpenGoldenSunWindows.Animations
             texture = content.Load<Texture2D> ("Sprites/Icons/" + Enum.GetName (typeof(Icons), this.icon));
         }
 
-        public override void Update(GameTime gameTime)
-        {
-            if (!isRunning)
-                return;
-            
-            elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            if (elapsedTime >= FrameDuration) {
-                elapsedTime -= FrameDuration;
-                frame = (frame + 1) % FrameCount;
-            }
-        }
-
         public override void Draw (SpriteBatch spriteBatch, GameTime gameTime)
         {
-            if (!isRunning)
+            if (!IsRunning)
                 return;
             
             if (IsSelected ()) {
-                spriteBatch.Draw (texture, null, new Rectangle((int)Position.X - 1 - frame, (int)Position.Y - 4 - frame, 28 + frame, 28 + frame), null, null, 0);
+                spriteBatch.Draw (texture, null, new Rectangle((int)Position.X - 1 - Frame, (int)Position.Y - 4 - Frame, 28 + Frame, 28 + Frame), null, null, 0);
             } else {
                 spriteBatch.Draw (texture, Position);
             }
-        }
-
-        public override void Play ()
-        {
-            isRunning = true;
-        }
-
-        public override void Pause ()
-        {
-            isRunning = false;
-        }
-
-        public override void Stop ()
-        {
-            Pause ();
         }
     }
 }

@@ -19,7 +19,7 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
         int previousSelectedPlayer = -1;
 
         WalkingCharacterAnimation[] characterSpots = new WalkingCharacterAnimation[4];
-        IconLabel cursor;
+        CursorAnimation cursor;
 
         public PlayerWindow (Party party, Reference<int> selectedPlayer, int x, int y, int width, int height) : base(x, y, width, height)
         {
@@ -30,7 +30,7 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
                 Add (characterSpots [i] = new WalkingCharacterAnimation (new Vector2 (X - 1 + i * spacing, Y)));
             }
 
-            Add (cursor = new IconLabel (Icons.Cursor, new Vector2 (X - 1, Y + 23)));
+            Add (cursor = new CursorAnimation (new Vector2 (X - 1, Y + 23)));
         }
 
         private bool IsPlayerSelected(int i)
