@@ -11,9 +11,9 @@ using OpenGoldenSunWindows.Animations;
 
 namespace OpenGoldenSunWindows.Gui.StatusScreen
 {
-    public class StatusWindow : WindowBase
+    public class StatusWindow : WindowBase, IObserver
     {
-        Reference<Character> selectedCharacter;
+        ObservableReference<Character> selectedCharacter;
 
         PortraitImage portrait;
 
@@ -40,12 +40,13 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
         IntegerLabel fireDjinn;
         IntegerLabel windDjinn;
 
-        public StatusWindow (Reference<Character> selectedCharacter, int x, int y, int width, int height) : base(x, y, width, height)
+        public StatusWindow (ObservableReference<Character> selectedCharacter, int x, int y, int width, int height) : base(x, y, width, height)
         {
             this.selectedCharacter = selectedCharacter;
+            this.selectedCharacter.Register (this);
 
             // Djinn animations
-            Add (new WalkingDjinniAnimation(Element.Earth, new Vector2 (X + 115, Y + 58), SpriteEffects.FlipHorizontally));
+            Add (new WalkingDjinniAnimation (Element.Earth, new Vector2 (X + 115, Y + 58), SpriteEffects.FlipHorizontally));
             Add (new WalkingDjinniAnimation (Element.Water, new Vector2 (X + 147, Y + 58), SpriteEffects.FlipHorizontally));
             Add (new WalkingDjinniAnimation (Element.Fire, new Vector2 (X + 180, Y + 58), SpriteEffects.FlipHorizontally));
             Add (new WalkingDjinniAnimation (Element.Wind, new Vector2 (X + 211, Y + 58), SpriteEffects.FlipHorizontally));
@@ -94,12 +95,16 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
             Add (new IconLabel (Icons.Mercury, new Vector2 (X + 161, Y + 89)));
             Add (new IconLabel (Icons.Mars, new Vector2 (X + 193, Y + 89)));
             Add (new IconLabel (Icons.Jupiter, new Vector2 (X + 225, Y + 89)));
+
+            OnEvent (this.selectedCharacter);
         }
 
-        public override void Update (GameTime gameTime)
+        public void OnEvent (IObservable source)
         {
             // Update character info
             Character character = selectedCharacter.Value;
+            if (character == null)
+                return;
 
             portrait.Character = character;
 
@@ -121,8 +126,6 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
             waterDjinn.Number = character.Djinn.Count (d => d.Element == Element.Water);
             fireDjinn.Number = character.Djinn.Count (d => d.Element == Element.Fire);
             windDjinn.Number = character.Djinn.Count (d => d.Element == Element.Wind);
-
-            base.Update (gameTime);
         }
     }
 }

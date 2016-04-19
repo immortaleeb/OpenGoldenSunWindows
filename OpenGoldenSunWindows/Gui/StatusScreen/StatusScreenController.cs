@@ -18,11 +18,11 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
             Color.BurlyWood, Color.Gold, Color.Gainsboro, Color.Teal, Color.Wheat };
         int currentColor;
 
-        Reference<int> cursorPosition;
-        Reference<Character> selectedCharacter;
+        ObservableReference<int> cursorPosition;
+        ObservableReference<Character> selectedCharacter;
         Party party;
 
-        public StatusScreenController (Reference<int> cursorPosition, Reference<Character> selectedCharacter, Party party) : base()
+        public StatusScreenController (ObservableReference<int> cursorPosition, ObservableReference<Character> selectedCharacter, Party party) : base()
         {
             this.currentColor = 0;
             this.cursorPosition = cursorPosition;
@@ -67,13 +67,20 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
                 ScreenManager.ChangeScreen (Screens.Menu);
             }
 
+            if (WasPressed (state, Keys.R)) {
+                party.RemoveCharacter (0);
+                if (cursorPosition.Value == party.Characters.Count)
+                    cursorPosition.Value--;
+                selectedCharacter.Value = party.Characters [cursorPosition.Value];
+            }
+
             UpdateKeyboardState (state);
         }
 
         public override void Reset ()
         {
             cursorPosition.Value = 0;
-            selectedCharacter.Value = party.Characters[cursorPosition.Value];
+            selectedCharacter.Value = party.Characters [cursorPosition.Value];
         }
     }
 }

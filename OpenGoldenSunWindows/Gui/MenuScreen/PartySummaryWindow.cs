@@ -4,12 +4,10 @@ using OpenGoldenSunWindows.Characters;
 
 namespace OpenGoldenSunWindows.Gui.MenuScreen
 {
-    public class PartySummaryWindow : WindowBase
+    public class PartySummaryWindow : WindowBase, IObserver
     {
         private Party party;
         private CharacterHpPpPane[] panes = new CharacterHpPpPane[4];
-
-        private int lastPartyCount;
 
         private int x;
         private int width;
@@ -20,10 +18,17 @@ namespace OpenGoldenSunWindows.Gui.MenuScreen
         public PartySummaryWindow (Party party) : base (0, 0, 0, 39)
         {
             this.party = party;
-            this.lastPartyCount = -1;
 
             InitializePanes ();
             SetWindowProperties ();
+
+            party.Register (this);
+        }
+
+        public void OnEvent (IObservable source)
+        {
+            // Party changed, change window position and size
+            this.SetWindowProperties ();
         }
 
         private void InitializePanes ()
@@ -35,29 +40,20 @@ namespace OpenGoldenSunWindows.Gui.MenuScreen
 
         private void SetWindowProperties ()
         {
-            var count = this.party.Characters.Count;
-
-            // FIXME really ugly hack
-            if (this.lastPartyCount != count) {
-                this.width = count * 48 + count + 5;
-                this.x = 240 - this.width;
-
-                for (int i = 0; i < panes.Length; i++) {
-                    Remove (panes [i]);
-                    Add (panes [i] = new CharacterHpPpPane (new Vector2 (X + 8 + 48 * i, Y + 8)));
-                }
-
-                this.lastPartyCount = count;
-            }
-        }
-
-        public override void Update (GameTime gameTime)
-        {
-            base.Update (gameTime);
-
-            SetWindowProperties ();
-
             var characters = this.party.Characters;
+            var count = characters.Count;
+
+            // Set window position and size
+            // FIXME really ugly hack
+            this.width = count * 48 + count + 5;
+            this.x = 240 - this.width;
+
+            for (int i = 0; i < panes.Length; i++) {
+                Remove (panes [i]);
+                Add (panes [i] = new CharacterHpPpPane (new Vector2 (X + 8 + 48 * i, Y + 8)));
+            }
+
+            // Change the panes' content
             for (int i = 0; i < panes.Length; i++) {
                 var pane = panes [i];
                 if (i < characters.Count) {
@@ -67,7 +63,7 @@ namespace OpenGoldenSunWindows.Gui.MenuScreen
                     pane.SetVisible (false);
                     pane.Character = null;
                 }
-            } 
+            }
         }
     }
 }

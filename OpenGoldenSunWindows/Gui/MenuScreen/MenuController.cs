@@ -37,7 +37,7 @@ namespace OpenGoldenSunWindows.Gui.MenuScreen
             }
 
             if (WasPressed (state, Keys.R)) {
-                OpenGoldenSunGame.Party.Characters.RemoveAt (0);
+                OpenGoldenSunGame.Party.RemoveCharacter (0);
             }
 
             UpdateKeyboardState (state);

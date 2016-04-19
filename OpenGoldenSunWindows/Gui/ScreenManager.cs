@@ -54,8 +54,8 @@ namespace OpenGoldenSunWindows.Gui
 
         private static void InitStatusScreen(Party party)
         {
-            Reference<int> cursorPosition = new Reference<int> (0);
-            Reference<Character> selectedCharacter = new Reference<Character> (null);
+            ObservableReference<int> cursorPosition = new ObservableReference<int> (0);
+            ObservableReference<Character> selectedCharacter = new ObservableReference<Character> (null);
             var controller = new StatusScreenController (cursorPosition, selectedCharacter, party);
             var statusScreen = new OpenGoldenSunWindows.Gui.StatusScreen.StatusScreen (cursorPosition, selectedCharacter, party);
 

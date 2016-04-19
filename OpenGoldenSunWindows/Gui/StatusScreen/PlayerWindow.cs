@@ -10,10 +10,10 @@ using OpenGoldenSunWindows.Animations;
 
 namespace OpenGoldenSunWindows.Gui.StatusScreen
 {
-    public class PlayerWindow : WindowBase
+    public class PlayerWindow : WindowBase, IObserver
     {
         Party party;
-        Reference<int> selectedPlayer;
+        ObservableReference<int> selectedPlayer;
         const int spacing = 25;
 
         int previousSelectedPlayer = -1;
@@ -21,16 +21,21 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
         WalkingCharacterAnimation[] characterSpots = new WalkingCharacterAnimation[4];
         CursorAnimation cursor;
 
-        public PlayerWindow (Party party, Reference<int> selectedPlayer, int x, int y, int width, int height) : base(x, y, width, height)
+        public PlayerWindow (Party party, ObservableReference<int> selectedPlayer, int x, int y, int width, int height) : base(x, y, width, height)
         {
             this.party = party;
             this.selectedPlayer = selectedPlayer;
+            party.Register (this);
+            selectedPlayer.Register (this);
 
             for (int i = 0; i < characterSpots.Length; i++) {
                 Add (characterSpots [i] = new WalkingCharacterAnimation (new Vector2 (X - 1 + i * spacing, Y)));
             }
 
             Add (cursor = new CursorAnimation (new Vector2 (X - 1, Y + 23)));
+
+            // Force characters in the right spot
+            OnEvent (selectedPlayer);
         }
 
         private bool IsPlayerSelected(int i)
@@ -43,7 +48,7 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
             return previousSelectedPlayer == i;
         }
 
-        public override void Update (GameTime gameTime)
+        public void OnEvent (IObservable source)
         {
             for (int i = 0; i < party.Characters.Count; i++) {
                 var character = party.Characters [i];
@@ -68,8 +73,6 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
             }
 
             previousSelectedPlayer = selectedPlayer.Value;
-
-            base.Update (gameTime);
         }
 
         protected override void DrawContent (SpriteBatch spriteBatch, GameTime gameTime)

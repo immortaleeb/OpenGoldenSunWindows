@@ -12,7 +12,7 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
 {
     public class StatusScreen : ScreenBase
     {
-        public StatusScreen (Reference<int> cursorPosition, Reference<Character> selectedCharacter, Party party)
+        public StatusScreen (ObservableReference<int> cursorPosition, ObservableReference<Character> selectedCharacter, Party party)
         {
             Add (new PlayerWindow (party, cursorPosition, 0, 0, 104, 40));
             Add (new InfoWindow (104, 0, 136, 40));
