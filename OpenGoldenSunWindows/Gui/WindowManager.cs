@@ -9,12 +9,29 @@ namespace OpenGoldenSunWindows.Gui
     {
         public static Color DefaultColor = new Color (0, 96, 128);
 
-        public static Color Color;
+        private static Color color;
+        public static Color Color { 
+            get { return color; }
+            set { 
+                if (color != value) {
+                    color = value;
+                    UpdateColors ();
+                }
+            }
+        }
+
+        private static Color selectionColor;
+        public static Color SelectionColor { get { return selectionColor; } }
         public static GraphicsDevice Graphics;
 
         static WindowManager ()
         {
             Color = DefaultColor;
+        }
+
+        private static void UpdateColors ()
+        {
+            selectionColor = new Color (Color.R + 74, Color.G + 74, Color.B + 74);
         }
 
         public static void Initialize(GraphicsDevice graphics)

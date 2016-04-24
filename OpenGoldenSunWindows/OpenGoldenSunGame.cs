@@ -51,9 +51,20 @@ namespace OpenGoldenSunWindows
             var flint = new Djinni ("Flint", Element.Earth);
             var scorch = new Djinni ("Scorch", Element.Fire);
 
-            var isaac = new Character ("Isaac", new CharacterClass ("Squire"), 1, 0, 1, 30, 16, 30, 25, 13, 13, 3, StatusAilment.NORMAL);
-            var garet = new Character ("Garet", new CharacterClass ("Brute"), 1, 0, 27, 33, 44, 49, 17, 12, 10, 5, StatusAilment.NORMAL);
-            var jenna = new Character ("Jenna", new CharacterClass ("Flame User"), 1, 0, 49, 50, 48, 56, 19, 15, 15, 3, StatusAilment.NORMAL);
+            var isaac = new Character (
+                "Isaac", Element.Earth, new CharacterClass ("Squire"), 
+                1, 0, 1, 30, 16, 30, 25, 13, 13, 3, 
+                new int[4] { 79, 76, 78, 77 }, new int[4] { 89, 86, 88, 87 },
+                StatusAilment.NORMAL);
+            var garet = new Character (
+                "Garet", Element.Fire, new CharacterClass ("Brute"), 
+                1, 0, 27, 33, 44, 49, 17, 12, 10, 5, 
+                new int[4] { 76, 79, 77, 78 }, new int[4] { 86, 89, 87, 88 },
+                StatusAilment.NORMAL);
+            var jenna = new Character ("Jenna", Element.Fire, new CharacterClass ("Flame User"), 
+                1, 0, 49, 50, 48, 56, 19, 15, 15, 3, 
+                new int[4] { 76, 79, 77, 78 }, new int[4] { 86, 89, 87, 88 },
+                StatusAilment.NORMAL);
 
             isaac.Djinn.Add (flint);
             jenna.Djinn.Add (scorch);

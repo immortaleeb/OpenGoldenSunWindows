@@ -8,7 +8,7 @@ using OpenGoldenSunWindows.Gui;
 using OpenGoldenSunWindows.Utils;
 using OpenGoldenSunWindows.Animations;
 
-namespace OpenGoldenSunWindows.Gui.StatusScreen
+namespace OpenGoldenSunWindows.Gui.StatusScreen.MainScreen
 {
     public class PlayerWindow : WindowBase, IObserver
     {
@@ -21,7 +21,7 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
         WalkingCharacterAnimation[] characterSpots = new WalkingCharacterAnimation[4];
         CursorAnimation cursor;
 
-        public PlayerWindow (Party party, ObservableReference<int> selectedPlayer, int x, int y, int width, int height) : base(x, y, width, height)
+        public PlayerWindow (Party party, ObservableReference<int> selectedPlayer, int x, int y) : base(x, y, 104, 40)
         {
             this.party = party;
             this.selectedPlayer = selectedPlayer;

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,9 +10,9 @@ using OpenGoldenSunWindows.Animations;
 
 namespace OpenGoldenSunWindows.Gui.StatusScreen
 {
-    public class StatusWindow : WindowBase, IObserver
+    public abstract class StatusWindowBase : WindowBase, IObserver
     {
-        ObservableReference<Character> selectedCharacter;
+        protected ObservableReference<Character> selectedCharacter;
 
         PortraitImage portrait;
 
@@ -35,21 +34,10 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
         TextLabel characterClass;
         TextLabel characterStatus;
 
-        IntegerLabel earthDjinn;
-        IntegerLabel waterDjinn;
-        IntegerLabel fireDjinn;
-        IntegerLabel windDjinn;
-
-        public StatusWindow (ObservableReference<Character> selectedCharacter, int x, int y, int width, int height) : base(x, y, width, height)
+        public StatusWindowBase (ObservableReference<Character> selectedCharacter, int x, int y) : base(x, y, 240, 120)
         {
             this.selectedCharacter = selectedCharacter;
             this.selectedCharacter.Register (this);
-
-            // Djinn animations
-            Add (new WalkingDjinniAnimation (Element.Earth, new Vector2 (X + 115, Y + 58), SpriteEffects.FlipHorizontally));
-            Add (new WalkingDjinniAnimation (Element.Water, new Vector2 (X + 147, Y + 58), SpriteEffects.FlipHorizontally));
-            Add (new WalkingDjinniAnimation (Element.Fire, new Vector2 (X + 180, Y + 58), SpriteEffects.FlipHorizontally));
-            Add (new WalkingDjinniAnimation (Element.Wind, new Vector2 (X + 211, Y + 58), SpriteEffects.FlipHorizontally));
 
             // Characters stats
             Add (portrait = new PortraitImage(selectedCharacter.Value, new Vector2(X + 8, Y + 8)));
@@ -84,23 +72,13 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
 
             Add (characterClass = new TextLabel (new Vector2 (X + 8, Y + 40)));
             Add (characterStatus = new TextLabel (new Vector2 (X + 8, Y + 48)));
-
-            Add (new TextLabel ("Djinn", new Vector2 (X + 72, Y + 96)));
-            Add (earthDjinn = new IntegerLabel (new Vector2 (X + 136, Y + 96)));
-            Add (waterDjinn = new IntegerLabel (new Vector2 (X + 168, Y + 96)));
-            Add (fireDjinn = new IntegerLabel (new Vector2 (X + 200, Y + 96)));
-            Add (windDjinn = new IntegerLabel (new Vector2 (X + 232, Y + 96)));
-
-            Add (new IconLabel (Icons.Venus, new Vector2 (X + 129, Y + 89)));
-            Add (new IconLabel (Icons.Mercury, new Vector2 (X + 161, Y + 89)));
-            Add (new IconLabel (Icons.Mars, new Vector2 (X + 193, Y + 89)));
-            Add (new IconLabel (Icons.Jupiter, new Vector2 (X + 225, Y + 89)));
-
-            OnEvent (this.selectedCharacter);
         }
 
-        public void OnEvent (IObservable source)
+        public virtual void OnEvent (IObservable source)
         {
+            if (source != this.selectedCharacter)
+                return;
+            
             // Update character info
             Character character = selectedCharacter.Value;
             if (character == null)
@@ -121,11 +99,6 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
             characterLuck.Number = character.Luck;
             characterClass.Text = character.Clazz.Name;
             characterStatus.Text = character.StatusAilment.Name;
-
-            earthDjinn.Number = character.Djinn.Count (d => d.Element == Element.Earth);
-            waterDjinn.Number = character.Djinn.Count (d => d.Element == Element.Water);
-            fireDjinn.Number = character.Djinn.Count (d => d.Element == Element.Fire);
-            windDjinn.Number = character.Djinn.Count (d => d.Element == Element.Wind);
         }
     }
 }

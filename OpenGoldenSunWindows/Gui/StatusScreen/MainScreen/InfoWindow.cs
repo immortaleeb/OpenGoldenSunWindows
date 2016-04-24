@@ -6,11 +6,11 @@ using Microsoft.Xna.Framework.Graphics;
 using OpenGoldenSunWindows.Gui;
 using OpenGoldenSunWindows.Utils;
 
-namespace OpenGoldenSunWindows.Gui.StatusScreen
+namespace OpenGoldenSunWindows.Gui.StatusScreen.MainScreen
 {
     public class InfoWindow : WindowBase
     {
-        public InfoWindow (int x, int y, int width, int height) : base(x, y, width, height)
+        public InfoWindow (int x, int y) : base(x, y, 136, 40)
         {
             Add (new TextLabel ("-", new Vector2 (X + 22, Y + 8)));
             Add (new TextLabel (":", new Vector2 (x + 42, y + 8)));

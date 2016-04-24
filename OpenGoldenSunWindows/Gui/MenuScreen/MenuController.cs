@@ -26,17 +26,17 @@ namespace OpenGoldenSunWindows.Gui.MenuScreen
         {
             var state = Keyboard.GetState ();
 
-            if (WasPressed (state, Keys.Left)) {
+            if (WasPressed (state, Controls.LeftKey)) {
                 CycleMenu (-1);
-            } else if (WasPressed (state, Keys.Right)) {
+            } else if (WasPressed (state, Controls.RightKey)) {
                 CycleMenu (1);
             }
 
-            if (WasPressed (state, Keys.A)) {
-                ScreenManager.ChangeScreen (Screens.Status);
+            if (WasPressed (state, Controls.ConfirmKey)) {
+                ScreenManager.ChangeScreen (Screens.StatusMain);
             }
 
-            if (WasPressed (state, Keys.R)) {
+            if (WasPressed (state, Controls.RightTrigger)) {
                 OpenGoldenSunGame.Party.RemoveCharacter (0);
             }
 

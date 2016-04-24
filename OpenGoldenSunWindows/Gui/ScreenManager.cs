@@ -14,7 +14,8 @@ namespace OpenGoldenSunWindows.Gui
     {
         None,
         Menu,
-        Status
+        StatusMain,
+        StatusStatDetails
     }
 
     public class ScreenManager
@@ -54,12 +55,23 @@ namespace OpenGoldenSunWindows.Gui
 
         private static void InitStatusScreen(Party party)
         {
-            ObservableReference<int> cursorPosition = new ObservableReference<int> (0);
-            ObservableReference<Character> selectedCharacter = new ObservableReference<Character> (null);
-            var controller = new StatusScreenController (cursorPosition, selectedCharacter, party);
-            var statusScreen = new OpenGoldenSunWindows.Gui.StatusScreen.StatusScreen (cursorPosition, selectedCharacter, party);
+            // Models
+            ObservableReference<int> characterCursorPosition = new ObservableReference<int> (0);
+            ObservableReference<Character> selectedCharacter = new ObservableReference<Character> (party.Characters[0]);
+            ObservableReference<int> statCursorPosition = new ObservableReference<int> (-1);
 
-            RegisterScreen (Screens.Status, statusScreen, controller);
+            // Controllers
+            var mainController = new StatusScreen.MainScreen.MainController (characterCursorPosition, selectedCharacter, party);
+            var detailsController = new StatusScreen.StatDetailsScreen.DetailsController (
+                party, characterCursorPosition, selectedCharacter, statCursorPosition, 
+                StatusScreen.StatDetailsScreen.StatDetailsWindow.SelectableAreas.Length - 1);
+
+            // Screens
+            var mainStatusScreen = new StatusScreen.MainScreen.MainStatusScreen (characterCursorPosition, selectedCharacter, party);
+            var detailsScreen = new StatusScreen.StatDetailsScreen.DetailsScreen (selectedCharacter, statCursorPosition);
+
+            RegisterScreen (Screens.StatusMain, mainStatusScreen, mainController);
+            RegisterScreen (Screens.StatusStatDetails, detailsScreen, detailsController);
         }
 
         public static void Initialize(Party party)

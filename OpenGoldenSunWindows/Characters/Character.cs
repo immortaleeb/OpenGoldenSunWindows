@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace OpenGoldenSunWindows.Characters
@@ -6,6 +7,8 @@ namespace OpenGoldenSunWindows.Characters
     public class Character
     {
         public string Name { get; }
+
+        public Element Element { get; }
 
         public CharacterClass Clazz { get; }
 
@@ -46,10 +49,20 @@ namespace OpenGoldenSunWindows.Characters
 
         public IList<Djinni> Djinn { get; }
 
-        public Character (string name, CharacterClass clazz, int level, int exp, int hp, int maxHP, int pp, int maxPP, int attack, int defense, int agility, int luck, StatusAilment statusAilment)
+        // Contains the elemental power and resistance in order of each element's index
+        private int[] baseElementalPower;
+        private int[] baseElementalResistance;
+
+        public Character (
+            string name, Element element, CharacterClass clazz, 
+            int level, int exp, int hp, int maxHP, int pp, int maxPP, int attack, int defense, int agility, int luck, 
+            int[] baseElementalPower, int[] baseElementalResistance,
+            StatusAilment statusAilment)
         {
             Name = name;
+            Element = element;
             Clazz = clazz;
+
             this.level = level;
             this.exp = exp;
             this.hp = hp;
@@ -60,8 +73,29 @@ namespace OpenGoldenSunWindows.Characters
             this.defense = defense;
             this.agility = agility;
             this.luck = luck;
+
+            this.baseElementalPower = baseElementalPower;
+            this.baseElementalResistance = baseElementalResistance;
+
             StatusAilment = statusAilment;
             Djinn = new List<Djinni> (8);
+        }
+
+        public int ElementalLevel (Element element)
+        {
+            int level = element == this.Element ? 5 : 0;
+            level += this.Djinn.Count (d => d.Element == element && d.Status == DjinniStatus.Set);
+            return level;
+        }
+
+        public int ElementalPower (Element element)
+        {
+            return baseElementalPower [element.Index] + 5 * ElementalLevel (element);
+        }
+
+        public int ElementalResistance (Element element)
+        {
+            return baseElementalResistance [element.Index] + 5 * ElementalLevel (element);
         }
     }
 }

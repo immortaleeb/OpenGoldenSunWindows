@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -16,6 +17,11 @@ namespace OpenGoldenSunWindows.Gui
         protected bool WasPressed(KeyboardState state, Keys key)
         {
             return state.IsKeyUp (key) && !oldState.IsKeyUp (key);
+        }
+
+        protected bool WasAnyPressed(KeyboardState state, Keys[] keys)
+        {
+            return keys.Any (key => this.WasPressed (state, key));
         }
 
         protected void UpdateKeyboardState(KeyboardState state)

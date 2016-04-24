@@ -7,9 +7,9 @@ using OpenGoldenSunWindows.Characters;
 using OpenGoldenSunWindows.Gui;
 using OpenGoldenSunWindows.Utils;
 
-namespace OpenGoldenSunWindows.Gui.StatusScreen
+namespace OpenGoldenSunWindows.Gui.StatusScreen.MainScreen
 {
-    public class StatusScreenController : ControllerBase
+    public class MainController : ControllerBase
     {
         // A random selection of colors
         Color[] colors = { 
@@ -22,7 +22,7 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
         ObservableReference<Character> selectedCharacter;
         Party party;
 
-        public StatusScreenController (ObservableReference<int> cursorPosition, ObservableReference<Character> selectedCharacter, Party party) : base()
+        public MainController (ObservableReference<int> cursorPosition, ObservableReference<Character> selectedCharacter, Party party) : base()
         {
             this.currentColor = 0;
             this.cursorPosition = cursorPosition;
@@ -51,23 +51,24 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
         {
             var state = Keyboard.GetState ();
 
-            if (WasPressed(state, Keys.Left)) {
+            if (WasPressed(state, Controls.LeftKey)) {
                 MoveCursor (-1);
-            } else if (WasPressed(state, Keys.Right)) {
+            } else if (WasPressed(state, Controls.RightKey)) {
                 MoveCursor (1);
             }
 
-            if (WasPressed (state, Keys.Up)) {
+            if (WasPressed (state, Controls.UpKey)) {
                 CycleColor (1);
-            } else if (WasPressed (state, Keys.Down)) {
+            } else if (WasPressed (state, Controls.DownKey)) {
                 CycleColor (-1);
             }
 
-            if (WasPressed (state, Keys.A)) {
+            if (WasPressed (state, Controls.CancelKey)) {
                 ScreenManager.ChangeScreen (Screens.Menu);
-            }
-
-            if (WasPressed (state, Keys.R)) {
+                ResetCharacter ();
+            } else if (WasPressed (state, Controls.ConfirmKey)) {
+                ScreenManager.ChangeScreen (Screens.StatusStatDetails);
+            } else if (WasPressed (state, Controls.RightTrigger)) {
                 party.RemoveCharacter (0);
                 if (cursorPosition.Value == party.Characters.Count)
                     cursorPosition.Value--;
@@ -77,10 +78,15 @@ namespace OpenGoldenSunWindows.Gui.StatusScreen
             UpdateKeyboardState (state);
         }
 
-        public override void Reset ()
+        private void ResetCharacter ()
         {
             cursorPosition.Value = 0;
             selectedCharacter.Value = party.Characters [cursorPosition.Value];
+        }
+
+        public override void Reset ()
+        {
+            
         }
     }
 }
