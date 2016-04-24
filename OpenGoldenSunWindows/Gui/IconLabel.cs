@@ -15,6 +15,7 @@ namespace OpenGoldenSunWindows.Gui
         LButton,
         RButton,
         AButton,
+        SelectButton,
 
         Venus,
         Mercury,
