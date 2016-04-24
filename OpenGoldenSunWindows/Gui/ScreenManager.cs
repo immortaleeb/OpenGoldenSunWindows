@@ -7,6 +7,7 @@ using OpenGoldenSunWindows.Gui.MenuScreen;
 using OpenGoldenSunWindows.Gui.StatusScreen;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using OpenGoldenSunWindows.Gui.DjinnScreen;
 
 namespace OpenGoldenSunWindows.Gui
 {
@@ -14,8 +15,11 @@ namespace OpenGoldenSunWindows.Gui
     {
         None,
         Menu,
+
         StatusMain,
-        StatusStatDetails
+        StatusStatDetails,
+
+        DjinnMain
     }
 
     public class ScreenManager
@@ -74,10 +78,29 @@ namespace OpenGoldenSunWindows.Gui
             RegisterScreen (Screens.StatusStatDetails, detailsScreen, detailsController);
         }
 
+        private static void InitDjinnScreen(Party party)
+        {
+            // Models
+            var firstCharacter = party.Characters[0];
+            var firstDjinni = firstCharacter.Djinn.Count > 0 ? firstCharacter.Djinn [0] : null;
+
+            ObservableReference<Character> selectedCharacter = new ObservableReference<Character> (firstCharacter);
+            ObservableReference<Djinni> selectedDjinni = new ObservableReference<Djinni> (firstDjinni);
+
+            // Controllers
+            var mainController = new MainDjinnScreenController();
+
+            // Screens
+            var mainDjinnScreen = new MainDjinnScreen(selectedCharacter, selectedDjinni);
+
+            RegisterScreen (Screens.DjinnMain, mainDjinnScreen, mainController);
+        }
+
         public static void Initialize(Party party)
         {
             InitMenuScreen (party);
             InitStatusScreen (party);
+            InitDjinnScreen (party);
 
             ChangeScreen (Screens.Menu);
         }
@@ -92,13 +115,13 @@ namespace OpenGoldenSunWindows.Gui
 
         public static void Update(GameTime gameTime)
         {
-            SelectedController.Update (gameTime);
-            SelectedScreen.Update (gameTime);
+            SelectedController?.Update (gameTime);
+            SelectedScreen?.Update (gameTime);
         }
 
         public static void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            SelectedScreen.Draw(spriteBatch, gameTime);
+            SelectedScreen?.Draw(spriteBatch, gameTime);
         }
 
         public static void ChangeScreen(Screens newScreenIndex)

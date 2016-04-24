@@ -2,11 +2,20 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using OpenGoldenSunWindows.Utils;
+using System.Collections.Generic;
 
 namespace OpenGoldenSunWindows.Gui.MenuScreen
 {
     public class MenuController : ControllerBase
     {
+        private static IDictionary<Icons, Screens> screenTransitions;
+        static MenuController()
+        {
+            screenTransitions = new Dictionary<Icons, Screens>();
+            screenTransitions [Icons.Status] = Screens.StatusMain;
+            screenTransitions [Icons.Djinn] = Screens.DjinnMain;
+        }
+
         SelectedItem<Icons> selectedItem;
 
         public MenuController (SelectedItem<Icons> selectedItem) : base()
@@ -33,7 +42,8 @@ namespace OpenGoldenSunWindows.Gui.MenuScreen
             }
 
             if (WasPressed (state, Controls.ConfirmKey)) {
-                ScreenManager.ChangeScreen (Screens.StatusMain);
+                if (screenTransitions.ContainsKey (selectedItem.Item))
+                    ScreenManager.ChangeScreen (screenTransitions[selectedItem.Item]);
             }
 
             if (WasPressed (state, Controls.RightTrigger)) {
