@@ -65,6 +65,10 @@ namespace OpenGoldenSunWindows
                 1, 0, 49, 50, 48, 56, 19, 15, 15, 3, 
                 new int[4] { 76, 79, 77, 78 }, new int[4] { 86, 89, 87, 88 },
                 StatusAilment.NORMAL);
+            var alex = new Character ("Alex", Element.Water, new CharacterClass ("Water Seer"), 
+                1, 0, 49, 50, 48, 56, 19, 15, 15, 3, 
+                new int[4] { 76, 79, 77, 78 }, new int[4] { 86, 89, 87, 88 },
+                StatusAilment.NORMAL);
 
             isaac.Djinn.Add (flint);
             jenna.Djinn.Add (scorch);
@@ -73,6 +77,7 @@ namespace OpenGoldenSunWindows
             characters.Add (isaac);
             characters.Add (garet);
             characters.Add (jenna);
+            characters.Add (alex);
             Party = new Party(characters);
         }
 

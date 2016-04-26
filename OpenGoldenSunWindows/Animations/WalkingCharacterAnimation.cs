@@ -39,6 +39,7 @@ namespace OpenGoldenSunWindows.Animations
                 LoadCharacterTextures(content, "Isaac", Enumerable.Repeat (0.5f, 16).ToArray ());
                 LoadCharacterTextures(content, "Garet", Enumerable.Repeat (0.5f, 8).ToArray ());
                 LoadCharacterTextures(content, "Jenna", Enumerable.Repeat (0.5f, 6).ToArray ());
+                LoadCharacterTextures(content, "Alex", Enumerable.Repeat (0.5f, 6).ToArray ());
             }
         }
     }

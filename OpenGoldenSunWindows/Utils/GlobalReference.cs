@@ -12,7 +12,7 @@ namespace OpenGoldenSunWindows.Utils
 {
     public class GlobalReference
     {
-        public static string[] CharacterNames = { "Isaac", "Garet", "Jenna" };
+        public static string[] CharacterNames = { "Isaac", "Garet", "Jenna", "Alex" };
     }
 }
 
