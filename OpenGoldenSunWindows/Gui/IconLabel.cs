@@ -32,10 +32,14 @@ namespace OpenGoldenSunWindows.Gui
             return iconTextures [(int)icon];
         }
 
-        public Icons Icon { get; }
+        public Icons Icon { get; set; }
         public override Texture2D Texture { get { return GetIconTexture (this.Icon); } }
 
-        public IconLabel (Icons icon, Vector2 position) : base (position)
+        public IconLabel(Vector2 position) : base (position)
+        {
+        }
+
+        public IconLabel (Icons icon, Vector2 position) : this (position)
         {
             this.Icon = icon;
         }

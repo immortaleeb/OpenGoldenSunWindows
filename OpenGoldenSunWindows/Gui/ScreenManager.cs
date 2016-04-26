@@ -91,7 +91,7 @@ namespace OpenGoldenSunWindows.Gui
             var mainController = new MainDjinnScreenController();
 
             // Screens
-            var mainDjinnScreen = new MainDjinnScreen(selectedCharacter, selectedDjinni);
+            var mainDjinnScreen = new MainDjinnScreen(party, selectedCharacter, selectedDjinni);
 
             RegisterScreen (Screens.DjinnMain, mainDjinnScreen, mainController);
         }

@@ -22,7 +22,7 @@ namespace OpenGoldenSunWindows
     /// </summary>
     public class OpenGoldenSunGame : Game
     {
-        const int windowScale = 3;
+        const int windowScale = 1;
         Point gbaWindowSize = new Point(240, 160);
         Point windowSize;
 
