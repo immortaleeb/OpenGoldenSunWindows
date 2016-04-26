@@ -22,7 +22,7 @@ namespace OpenGoldenSunWindows
     /// </summary>
     public class OpenGoldenSunGame : Game
     {
-        const int windowScale = 1;
+        const int windowScale = 3;
         Point gbaWindowSize = new Point(240, 160);
         Point windowSize;
 
@@ -48,8 +48,24 @@ namespace OpenGoldenSunWindows
 
         private void InitParty()
         {
-            var flint = new Djinni ("Flint", Element.Earth);
+            var flint = new Djinni ("Flint", Element.Earth); 
+            flint.Status = DjinniStatus.Recovering;
+            var granite = new Djinni ("Granite", Element.Earth);
+            var quartz = new Djinni ("Quartz", Element.Earth);
+
             var scorch = new Djinni ("Scorch", Element.Fire);
+            var fever = new Djinni ("Fever", Element.Fire);
+
+            var gust = new Djinni ("Gust", Element.Wind); 
+            gust.Status = DjinniStatus.Standy;
+            var breeze = new Djinni ("Breeze", Element.Wind);
+            breeze.Status = DjinniStatus.Standy;
+            var zephyr = new Djinni ("Zephyr", Element.Wind);
+            zephyr.Status = DjinniStatus.Standy;
+
+            var fizz = new Djinni ("Fizz", Element.Water);
+            var sleet = new Djinni ("Sleet", Element.Water);
+            sleet.Status = DjinniStatus.Standy;
 
             var isaac = new Character (
                 "Isaac", Element.Earth, new CharacterClass ("Squire"), 
@@ -71,7 +87,18 @@ namespace OpenGoldenSunWindows
                 StatusAilment.NORMAL);
 
             isaac.Djinn.Add (flint);
+            isaac.Djinn.Add (granite);
+            isaac.Djinn.Add (zephyr);
+
             jenna.Djinn.Add (scorch);
+            jenna.Djinn.Add (fever);
+
+            garet.Djinn.Add (gust);
+            garet.Djinn.Add (breeze);
+
+            alex.Djinn.Add (fizz);
+            alex.Djinn.Add (sleet);
+            alex.Djinn.Add (quartz);
 
             var characters = new List<Character>();
             characters.Add (isaac);

@@ -24,30 +24,30 @@ namespace OpenGoldenSunWindows.Utils
             RegionHeight = regionHeight;
         }
 
-        public void Draw(SpriteBatch spriteBatch, int index, Vector2 position)
+        public void Draw(SpriteBatch spriteBatch, int index, Vector2 position, Color? color = null)
         {
-            Draw (spriteBatch, index / Columns, index % Columns, position);
+            Draw (spriteBatch, index / Columns, index % Columns, position, color);
         }
 
-        public void Draw(SpriteBatch spriteBatch, int row, int col, Vector2 position)
+        public void Draw(SpriteBatch spriteBatch, int row, int col, Vector2 position, Color? color = null)
         {
             Rectangle source = new Rectangle (RegionWidth * col, RegionHeight * row, RegionWidth, RegionHeight);
-            spriteBatch.Draw (texture, position, null, source);
+            spriteBatch.Draw (texture, position, null, source, null, 0, null, color);
         }
 
-        public void Draw(SpriteBatch spriteBatch, int index, Vector2 position, Rectangle relativeSource)
+        public void Draw(SpriteBatch spriteBatch, int index, Vector2 position, Rectangle relativeSource, Color? color = null)
         {
-            Draw (spriteBatch, index / Columns, index % Columns, position, relativeSource);
+            Draw (spriteBatch, index / Columns, index % Columns, position, relativeSource, color);
         }
 
-        public void Draw(SpriteBatch spriteBatch, int row, int col, Vector2 position, Rectangle relativeSource)
+        public void Draw(SpriteBatch spriteBatch, int row, int col, Vector2 position, Rectangle relativeSource, Color? color = null)
         {
             Rectangle source = new Rectangle (
                 RegionWidth * col + relativeSource.X, 
                 RegionHeight * row + relativeSource.Y, 
                 relativeSource.Width, relativeSource.Height);
             
-            spriteBatch.Draw (texture, position, null, source);
+            spriteBatch.Draw (texture, position, null, source, null, 0, null, color);
         }
     }
 }

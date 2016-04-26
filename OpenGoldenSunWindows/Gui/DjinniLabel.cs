@@ -31,26 +31,24 @@ namespace OpenGoldenSunWindows.Gui
             Add (nameLabel = new TextLabel (new Vector2 (position.X + 7, position.Y)));
         }
 
+        private Color? GetTextColorFromDjinniStatus (DjinniStatus status)
+        {
+            if (status == DjinniStatus.Set)
+                return Color.Red;
+            if (status == DjinniStatus.Recovering)
+                return Color.Yellow;
+
+            return null;
+        }
+
         private void DjinniChanged ()
         {
             if (djinni == null)
                 return;
-
-            Console.WriteLine (elementLabel.IsVisible);
+            
             elementLabel.Icon = GlobalReference.GetElementIcon (djinni.Element);
             nameLabel.Text = djinni.Name;
-        }
-
-        public override void SetVisible (bool visible)
-        {
-            Console.WriteLine ("SetVisible {0} {1}", djinni?.Name, visible);
-            base.SetVisible (visible);
-        }
-
-        public override void Draw (Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            Console.WriteLine ("Draw {0}", djinni?.Name);
-            base.Draw (spriteBatch, gameTime);
+            nameLabel.Color = GetTextColorFromDjinniStatus (djinni.Status);
         }
     }
 }

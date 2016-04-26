@@ -11,7 +11,7 @@ namespace OpenGoldenSunWindows.Characters
     {
         public string Name { get; }
         public Element Element { get; }
-        public DjinniStatus Status { get; }
+        public DjinniStatus Status { get; set; }
 
         public Djinni (string name, Element element, DjinniStatus status = DjinniStatus.Set)
         {

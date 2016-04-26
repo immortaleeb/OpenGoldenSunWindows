@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using OpenGoldenSunWindows.Utils;
 
 namespace OpenGoldenSunWindows.Characters
 {
@@ -47,7 +48,7 @@ namespace OpenGoldenSunWindows.Characters
 
         public StatusAilment StatusAilment { get; }
 
-        public IList<Djinni> Djinn { get; }
+        public ObservableList<Djinni> Djinn { get; }
 
         // Contains the elemental power and resistance in order of each element's index
         private int[] baseElementalPower;
@@ -78,7 +79,7 @@ namespace OpenGoldenSunWindows.Characters
             this.baseElementalResistance = baseElementalResistance;
 
             StatusAilment = statusAilment;
-            Djinn = new List<Djinni> (8);
+            Djinn = new ObservableList<Djinni> (8);
         }
 
         public int ElementalLevel (Element element)

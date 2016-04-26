@@ -42,6 +42,7 @@ namespace OpenGoldenSunWindows.Gui
         public virtual string Text { get; set; }
         public TextAlignment Alignment { get; set; }
         public bool CenterCharacters { get; set; }
+        public Color? Color { get; set; }
 
         public TextLabel (Vector2 position, TextAlignment alignment = TextAlignment.Left, bool centerCharacters = false) : this ("", position, alignment, centerCharacters)
         {
@@ -82,7 +83,7 @@ namespace OpenGoldenSunWindows.Gui
             Vector2 drawPos = new Vector2 (position.X + letterXOffset, position.Y + letterYOffset);
             Rectangle relativeSource = new Rectangle (0, letterYOffset, letterWidth, letterHeight);
 
-            Font.Draw (spriteBatch, index, drawPos, relativeSource);
+            Font.Draw (spriteBatch, index, drawPos, relativeSource, this.Color);
         }
 
         private void DrawLeftAligned(SpriteBatch spriteBatch)
